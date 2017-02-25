@@ -222,8 +222,8 @@ object ContextC5 {
     //`
     @JvmStatic
     fun main(args: Array<String>) {
-        val markdown = translate(File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike/01_Spike_c.kt").readText())
-        File("delme").apply {
+        val markdown = translate(File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike/01_c_Spike-First-Attempt-at-Publishing.kt").readText())
+        File("build/delme").apply {
             mkdirs()
             resolve("out.md").writeText(markdown)
         }
@@ -300,8 +300,8 @@ object ContextC7 {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val markdown = translate(File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike/01_Spike_c.kt").readText())
-        File("delme").apply {
+        val markdown = translate(File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike/01_c_Spike-First-Attempt-at-Publishing.kt").readText())
+        File("build/delme").apply {
             mkdirs()
             resolve("out.md").writeText(markdown)
         }
