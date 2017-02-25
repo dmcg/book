@@ -1,5 +1,6 @@
 package com.oneeyedmen.book.Chapter_01_Spike
 
+import com.oneeyedmen.book.Chapter_01_Spike.com.oneyedmen.book.publishing.approvalsRule
 import com.oneeyedmen.okeydoke.junit.ApprovalsRule
 import org.junit.Rule
 import org.junit.Test
@@ -18,9 +19,9 @@ OK, time to write some code.
 
 object Context1 {
     //`
-    class CodeExtractorTests1 {
+    class CodeExtractorTests {
 
-        @Rule @JvmField val approver = ApprovalsRule.usualRule()
+        @Rule @JvmField val approver = approvalsRule()
 
         @Test fun writes_a_markdown_file_from_Kotlin_file() {
             val source = """
@@ -66,9 +67,9 @@ Now we need to improve the `translate` function. I was about to start by strippi
 
 object Context2 {
 
-    class CodeExtractorTests2 {
+    class CodeExtractorTests {
 
-        @Rule @JvmField val approver = ApprovalsRule.usualRule()
+        @Rule @JvmField val approver = approvalsRule()
 
         //`
         @Test fun writes_a_markdown_file_from_Kotlin_file() {
@@ -107,9 +108,9 @@ Now we can first implement the code to strip out the block comments that hide ou
 
 object Context3 {
 
-    class CodeExtractorTests3 {
+    class CodeExtractorTests {
 
-        @Rule @JvmField val approver = ApprovalsRule.usualRule()
+        @Rule @JvmField val approver = approvalsRule()
 
         @Test fun writes_a_markdown_file_from_Kotlin_file() {
             val source = """
@@ -155,9 +156,9 @@ Let's get to work putting the code between our special markers into a Markdown c
 
 object Context4 {
 
-    class CodeExtractorTests4 {
+    class CodeExtractorTests {
 
-        @Rule @JvmField val approver = ApprovalsRule.usualRule()
+        @Rule @JvmField val approver = approvalsRule()
 
         @Test fun writes_a_markdown_file_from_Kotlin_file() {
             val source = """
@@ -240,9 +241,9 @@ add that case to our test suite.
 
 object Context6 {
 
-    class CodeExtractorTests6 {
+    class CodeExtractorTests {
 
-        @Rule @JvmField val approver = ApprovalsRule.usualRule()
+        @Rule @JvmField val approver = approvalsRule()
 
         //`
         @Test fun writes_a_markdown_file_from_Kotlin_file() {
@@ -319,9 +320,9 @@ less tired. I'll just make a small change to make it look less bad.
 
 object Context8 {
 
-    class CodeExtractorTests8 {
+    class CodeExtractorTests {
 
-        @Rule @JvmField val approver = ApprovalsRule.usualRule()
+        @Rule @JvmField val approver = approvalsRule()
 
         @Test fun writes_a_markdown_file_from_Kotlin_file() {
             val source = """
