@@ -1,4 +1,4 @@
-package com.oneeyedmen.book.Chapter_01_Spike.com.oneyedmen.book.publishing
+package com.oneeyedmen.book.publishing
 
 
 import com.oneeyedmen.okeydoke.ApproverFactories.fileSystemApproverFactory

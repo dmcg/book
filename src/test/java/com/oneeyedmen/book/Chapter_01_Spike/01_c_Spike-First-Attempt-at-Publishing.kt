@@ -1,7 +1,6 @@
 package com.oneeyedmen.book.Chapter_01_Spike
 
-import com.oneeyedmen.book.Chapter_01_Spike.com.oneyedmen.book.publishing.approvalsRule
-import com.oneeyedmen.okeydoke.junit.ApprovalsRule
+import com.oneeyedmen.book.publishing.approvalsRule
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
@@ -17,7 +16,7 @@ Let's write some code to take a mixed prose and source file and write a Markdown
 OK, time to write some code.
 -*/
 
-object Context1 {
+object ContextC1 {
     //`
     class CodeExtractorTests {
 
@@ -65,7 +64,7 @@ Now we need to improve the `translate` function. I was about to start by strippi
  explicitly mark code to be included.
 -*/
 
-object Context2 {
+object ContextC2 {
 
     class CodeExtractorTests {
 
@@ -106,7 +105,7 @@ Here I've used a line comment with a backtick `//``` to mark the beginning and e
 Now we can first implement the code to strip out the block comments that hide our prose from the Kotlin compiler
 -*/
 
-object Context3 {
+object ContextC3 {
 
     class CodeExtractorTests {
 
@@ -154,7 +153,7 @@ The first run of the test fails as the actual file is different from the approve
 Let's get to work putting the code between our special markers into a Markdown code block.
 -*/
 
-object Context4 {
+object ContextC4 {
 
     class CodeExtractorTests {
 
@@ -218,7 +217,7 @@ output easier.
 Now of course, I have to try the code on the file that I'm typing into right now, as that is the real point.
 -*/
 
-object Context5 {
+object ContextC5 {
 
     //`
     @JvmStatic
@@ -231,7 +230,7 @@ object Context5 {
     }
     //`
 
-    fun translate(source: String) = Context4.translate(source)
+    fun translate(source: String) = ContextC4.translate(source)
 }
 
 /*-
@@ -239,7 +238,7 @@ It doesn't quite work as I expected - it doesn't find publish code markers when 
 add that case to our test suite.
 -*/
 
-object Context6 {
+object ContextC6 {
 
     class CodeExtractorTests {
 
@@ -297,7 +296,7 @@ and implement quickly and dirtyly to see if it's good.
     //`
 }
 
-object Context7 {
+object ContextC7 {
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -308,7 +307,7 @@ object Context7 {
         }
     }
 
-    fun translate(source: String): String  = Context6.translate(source)
+    fun translate(source: String): String  = ContextC6.translate(source)
 }
 
 /*-
@@ -318,7 +317,7 @@ It feels like there is something general trying to get out of that `inBlock..` c
 less tired. I'll just make a small change to make it look less bad.
 -*/
 
-object Context8 {
+object ContextC8 {
 
     class CodeExtractorTests {
 

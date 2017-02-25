@@ -33,9 +33,11 @@ Well I can run that in the IDE and from Gradle, so I guess that's a start. It do
 printed that we're going to want to see comments in the code as well as the book text, so I'd better start using a
 special comment marker for the latter. I'm going to go with
 
-`/*-
-this is book text
--*/`
+```
+|/*-
+|this is book text
+|-*/
+```
 
 for now and see how it goes.
 
