@@ -219,8 +219,8 @@ Now of course, I have to try the code on the file that I'm typing into right now
 
 object ContextC5 {
 
-    //`
     @JvmStatic
+    //`
     fun main(args: Array<String>) {
         val markdown = translate(File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike/01_c_Spike-First-Attempt-at-Publishing.kt").readText())
         File("build/delme").apply {
@@ -296,20 +296,6 @@ and implement quickly and dirtyly to see if it's good.
     //`
 }
 
-object ContextC7 {
-
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val markdown = translate(File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike/01_c_Spike-First-Attempt-at-Publishing.kt").readText())
-        File("build/delme").apply {
-            mkdirs()
-            resolve("out.md").writeText(markdown)
-        }
-    }
-
-    fun translate(source: String): String  = ContextC6.translate(source)
-}
-
 /*-
 This works, and, after fixing some places in this file that I had messed up the formatting, it works here too.
 
@@ -317,7 +303,7 @@ It feels like there is something general trying to get out of that `inBlock..` c
 less tired. I'll just make a small change to make it look less bad.
 -*/
 
-object ContextC8 {
+object ContextC7 {
 
     class CodeExtractorTests {
 

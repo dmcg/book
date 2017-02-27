@@ -27,8 +27,8 @@ processing all the files in sequence.
 
 object ContextD1 {
 
-    //`
     @JvmStatic
+    //`
     fun main(args: Array<String>) {
         val dir = File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike")
         val translatedLines: Sequence<String> = sourceFilesIn(dir)
