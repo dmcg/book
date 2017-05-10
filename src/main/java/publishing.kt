@@ -1,16 +1,17 @@
+@file:JvmName("Main")
 import java.io.File
 
 fun main(args: Array<String>) {
-    val dir = File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike")
-    val translatedLines: Sequence<String> = sourceFilesIn(dir)
+    val srcDir = java.io.File(args[0])
+    val outFile = java.io.File(args[1]).apply {
+        absoluteFile.parentFile.mkdirs()
+    }
+
+    val translatedLines: Sequence<String> = sourceFilesIn(srcDir)
         .flatMap { translate(it).plus("\n") }
         .filterNotNull()
 
-    val outDir = File("build/book").apply {
-        mkdirs()
-    }
-
-    outDir.resolve(dir.name + ".md").bufferedWriter(Charsets.UTF_8).use { writer ->
+    outFile.bufferedWriter(Charsets.UTF_8).use { writer ->
         translatedLines.forEach {
             writer.appendln(it)
         }
