@@ -110,10 +110,10 @@ There is one other issue that I can see, which has to do with trying to show in 
 ```
 I'm going to go with
 
-|/*-
-|this is book text
-|-*/
+⁠/*-
+this is book text
+⁠-*/
 ```
 
-without the prepended <code>|</code> characters, the markers were of course interpreted as markers and not output. I don't have a solution to this at the moment, bar the pipe, but suspect that we'll need some way of escaping our own codes. I'm trusting that as I gain fluency with Markdown something clever will come up.
+the markers were interpreted as markers and messed up the output. I add a pipe character `|` to the beginning of those marker lines to get things running. I don't have a solution to this at the moment, bar the pipe, but suspect that we'll need some way of escaping our own codes. I'm trusting that as I gain fluency with Markdown something clever will come up. If you can see the markers without |'s above I guess I succeeded in the end.
 -*/

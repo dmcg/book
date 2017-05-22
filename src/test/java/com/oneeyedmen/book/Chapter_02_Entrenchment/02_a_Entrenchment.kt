@@ -40,7 +40,7 @@ object ContextA1 {
     //`
 }
 /*-
-I test this using IntelliJ's runner and then go rummaging in the far corners of the Internet to find out how to invoke Gradle to both build and then run this class. Full-disclosure, this led to over an hour of trying to work out what Gradle was building where - code can seem very simple compared to build systems. As I know that my chances of remembering what incantations are required are low, I capture the required commands in top level scripts in the project directory -
+I test this using IntelliJ's runner and then go rummaging in the far corners of the Internet to find out how to invoke Gradle to both build and then run this class. Full-disclosure, this led to over an hour of trying to work out what Gradle was building where - code can seem very simple compared to build systems. As I know that my chances of remembering what incantations are required are low, I capture the required commands in a top level script in the project directory -
 
 ```bash
 #!/usr/bin/env bash
@@ -49,4 +49,6 @@ I test this using IntelliJ's runner and then go rummaging in the far corners of 
 echo Zip file built in build/distributions
 echo Start script built in build/install/book/bin/book
 ```
+
+I then put on my blogger's hat and write a couple of articles on the relationship between objects and functions in Kotlin, using the same formatting rules as this book. It goes pretty well, giving me more confidence that I could write a whole book this way.
 -*/
