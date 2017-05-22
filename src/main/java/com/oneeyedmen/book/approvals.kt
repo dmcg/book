@@ -1,4 +1,4 @@
-package com.oneeyedmen.book.publishing
+package com.oneeyedmen.book
 
 
 import com.oneeyedmen.okeydoke.ApproverFactories.fileSystemApproverFactory
@@ -7,7 +7,7 @@ import com.oneeyedmen.okeydoke.junit.TestNamer
 import org.junit.runner.Description
 import java.io.File
 
-fun approvalsRule() = ApprovalsRule(fileSystemApproverFactory(File("src/test/java")), ContextTestNamer())
+fun approvalsRule() = ApprovalsRule(fileSystemApproverFactory(File("src/main/java")), ContextTestNamer())
 
 class ContextTestNamer : TestNamer {
 

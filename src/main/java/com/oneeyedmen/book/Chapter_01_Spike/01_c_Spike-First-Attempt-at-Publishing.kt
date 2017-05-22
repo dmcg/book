@@ -1,6 +1,6 @@
 package com.oneeyedmen.book.Chapter_01_Spike
 
-import com.oneeyedmen.book.publishing.approvalsRule
+import com.oneeyedmen.book.approvalsRule
 import org.junit.Rule
 import org.junit.Test
 import java.io.File

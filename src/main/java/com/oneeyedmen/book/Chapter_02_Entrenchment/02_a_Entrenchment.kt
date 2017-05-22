@@ -14,8 +14,6 @@ I was about to suggest that we review what does and doesn't work, maybe have a l
 Our current main method is hard-coded to the source path in this project. Finding a way to run the code from the command-line, specifying the source directory and destination file as parameters, would get me off my back, so I set to.
 
 -*/
-import com.oneeyedmen.book.Chapter_01_Spike.ContextD1.sourceFilesIn
-import com.oneeyedmen.book.Chapter_01_Spike.ContextD1.translate
 
 object ContextA1 {
 
@@ -27,8 +25,8 @@ object ContextA1 {
             absoluteFile.parentFile.mkdirs()
         }
 
-        val translatedLines: Sequence<String> = sourceFilesIn(srcDir)
-            .flatMap { translate(it).plus("\n") }
+        val translatedLines: Sequence<String> = com.oneeyedmen.book.Chapter_01_Spike.ContextD1.sourceFilesIn(srcDir)
+            .flatMap { com.oneeyedmen.book.Chapter_01_Spike.ContextD1.translate(it).plus("\n") }
             .filterNotNull()
 
         outFile.bufferedWriter(Charsets.UTF_8).use { writer ->

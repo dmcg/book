@@ -40,6 +40,7 @@ fun translate(sourceLines: List<String>): Sequence<String?> {
                 inTextBlock && line.firstNonSpaceCharsAre("-*/") -> { inTextBlock = false; null}
                 inTextBlock -> line
                 inCodeBlock -> line
+                line.isBlank() -> line
                 else -> null
             }
         }

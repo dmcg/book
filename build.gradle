@@ -10,11 +10,11 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
     compile "org.jetbrains.kotlin:kotlin-reflect"
 
-    testCompile "org.jetbrains.kotlin:kotlin-test"
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit"
+    compile "org.jetbrains.kotlin:kotlin-test"
+    compile "org.jetbrains.kotlin:kotlin-test-junit"
 
-    testCompile 'com.natpryce:hamkrest:1.4.0.0'
-    testCompile 'com.oneeyedmen:okeydoke:1.0.8'
+    compile 'com.natpryce:hamkrest:1.4.0.0'
+    compile 'com.oneeyedmen:okeydoke:1.0.8'
 }
 
 
