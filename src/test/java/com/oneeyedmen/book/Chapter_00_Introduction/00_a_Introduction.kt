@@ -14,6 +14,22 @@ I’ve been lucky enough to work with some excellent developers over the years, 
 built up around and whilst it has struck me how much we agree
 I try to be prescriptive only when
 
+
+It's always difficult to know what to write about. Two quotes haunt me. The first I remember reading from the Unix fortunes.dat
+file
+
+```
+"It is never worth a first-class man's time to express a majority opinion. By definition, there are plenty of others to do that."
+```
+
+which Wikipedia attributes to G H Hardy, and
+
+```
+"I feel that if a person can't communicate, the very least he can do is to shut up."
+```
+
+which was Tom Lehrer.
+
 -*/
 
 
