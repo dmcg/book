@@ -26,7 +26,7 @@ object ContextD1 {
     @JvmStatic
     //`
     fun main(args: Array<String>) {
-        val dir = File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike")
+        val dir = File("src/main/java/com/oneeyedmen/book/Chapter_01_Spike")
         val translatedLines: Sequence<String> = sourceFilesIn(dir)
             .flatMap(this::translate)
             .filterNotNull()
@@ -85,7 +85,7 @@ object ContextD2 {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val dir = File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike")
+        val dir = File("src/main/java/com/oneeyedmen/book/Chapter_01_Spike")
         //`
         val translatedLines: Sequence<String> = sourceFilesIn(dir)
             .flatMap { translate(it).plus("\n") }

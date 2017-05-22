@@ -1,5 +1,6 @@
 package com.oneeyedmen.book.Chapter_02_Entrenchment
 
+import com.oneeyedmen.book.Chapter_01_Spike.ContextD1
 import java.io.File
 
 /*-
@@ -25,8 +26,8 @@ object ContextA1 {
             absoluteFile.parentFile.mkdirs()
         }
 
-        val translatedLines: Sequence<String> = com.oneeyedmen.book.Chapter_01_Spike.ContextD1.sourceFilesIn(srcDir)
-            .flatMap { com.oneeyedmen.book.Chapter_01_Spike.ContextD1.translate(it).plus("\n") }
+        val translatedLines: Sequence<String> = ContextD1.sourceFilesIn(srcDir)
+            .flatMap { ContextD1.translate(it).plus("\n") }
             .filterNotNull()
 
         outFile.bufferedWriter(Charsets.UTF_8).use { writer ->

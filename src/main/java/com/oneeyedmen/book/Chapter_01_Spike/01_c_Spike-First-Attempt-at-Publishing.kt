@@ -46,7 +46,13 @@ object ContextC1 {
 }
 
 /*-
-Here I've written an example file content as a Kotlin here document, and then an identity translate function. Running the test creates a file `src/main/java/com/oneeyedmen/book/CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual` with the contents of the source file and fails the test. We can make the test pass by approving the content with ``` cp 'src/main/java/com/oneeyedmen/book/CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual' 'src/main/java/com/oneeyedmen/book/CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.approved' ``` and running it again.
+Here I've written an example file content as a Kotlin here document, and then an identity translate function. Running the test creates a file `CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual` with the contents of the source file and fails the test. We can make the test pass by approving the content with
+
+```bash
+cp 'CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual' 'CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.approved'
+```
+
+and running it again.
 
 Now we need to improve the `translate` function. I was about to start by stripping out the lines beginning with `/*-` and `-*/`, but if we do that first we'll loose information about where the code starts. In fact thinking it through I realise that this page has code that we don't want to view (the `package` and `import` statements at the top), and I'm sure that in general there will be other code that is required to compile but doesn't contribute to the narrative. Maybe we need to explicitly mark code to be included.
 -*/
@@ -219,7 +225,7 @@ object ContextC5 {
 }
 
 /*-
-It doesn't quite work as I expected - it doesn't find publish code markers when they are indented with spaces. I suppose we should add that case to our test suite.
+It doesn't quite work as I expected - it doesn't find publish code markers (\''') when they are indented with spaces. I suppose we should add that case to our test suite.
 -*/
 
 object ContextC6 {
