@@ -183,16 +183,20 @@ object ContextC4 {
             .map {
                 when {
                     !inCodeBlock && it.startsWith("//`") -> {
-                        inCodeBlock = true; "```kotlin"
+                        inCodeBlock = true
+                        "```kotlin"
                     }
                     inCodeBlock && it.startsWith("//`") -> {
-                        inCodeBlock = false; "```"
+                        inCodeBlock = false
+                        "```"
                     }
                     !inTextBlock && it.startsWith("/*-") -> {
-                        inTextBlock = true; ""
+                        inTextBlock = true
+                        ""
                     }
                     inTextBlock && it.startsWith("-*/") -> {
-                        inTextBlock = false; ""
+                        inTextBlock = false
+                        ""
                     }
                     inTextBlock -> it
                     inCodeBlock -> it
