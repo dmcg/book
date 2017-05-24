@@ -24,7 +24,7 @@ class SpikeTest {
 fun add(a: Int, b: Int) = a + b
 //`
 /*-
-Well I can run that in the IDE and from Gradle, so I guess that's a start. It does occur to me that when the book is printed that we're going to want to see comments in the code as well as the book text, so I'd better start using a special comment marker for the latter. I'm going to go with
+Well I can run that in the IDE and from Gradle, so I guess that's a start. It does occur to me that when the book is printed that we're going to want to see comments in the code as well as the book text, so I'd better start using a special comment marker for the latter. Taking a lead from Javadoc, which also extends standard block comments, I'm going to go with
 
 ```
 ⁠/*-

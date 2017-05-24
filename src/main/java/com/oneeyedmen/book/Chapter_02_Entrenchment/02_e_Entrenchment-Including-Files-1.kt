@@ -3,6 +3,7 @@ package com.oneeyedmen.book.Chapter_02_Entrenchment
 import com.oneeyedmen.book.Chapter_01_Spike.ContextC7
 import com.oneeyedmen.book.Chapter_01_Spike.ContextC7.firstNonSpaceCharsAre
 import com.oneeyedmen.book.approvalsRule
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -76,7 +77,6 @@ object ContextC1 {
 Whereas previously we had a single test for all of our formatting, #include seems like an orthogonal concern, so it gets its own test.
 
 Before we go on I decide to remove the duplication in the test methods
-
 -*/
 
 object ContextC2 {
@@ -92,8 +92,10 @@ object ContextC2 {
             |/*-
             |Title
             |=====
+            |
             |This is Markdown paragraph
             |-*/
+            |
             |object HiddenContext {
             |  //`
             |  /* This is a code comment
@@ -103,6 +105,7 @@ object ContextC2 {
             |  }
             |  //`
             |}
+            |
             |/*-
             |More book text.
             |-*/
@@ -157,6 +160,7 @@ We could change our tests to read the source from the filesystem, but that would
 
 object ContextC3 {
 
+    @Ignore
     class CodeExtractorTests {
 
         @Rule @JvmField val approver = approvalsRule()
@@ -182,29 +186,7 @@ object ContextC3 {
         }
 
         fun translate(source: String, fileReader: (String) -> String): String {
-            var inCodeBlock = false
-            var inTextBlock = false
-            return source.split("\n")
-                .map { line ->
-                    when {
-                        !inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                            inCodeBlock = true; "```kotlin"
-                        }
-                        inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                            inCodeBlock = false; "```"
-                        }
-                        !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
-                            inTextBlock = true; ""
-                        }
-                        inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
-                            inTextBlock = false; ""
-                        }
-                        inTextBlock -> line
-                        inCodeBlock -> line
-                        else -> ""
-                    }
-                }
-                .joinToString("\n")
+            TODO()
         }
         //`
     }
@@ -228,7 +210,7 @@ object ContextC4 {
     fun translate(source: String) = ContextC7.translate(source)
 }
 
+
 /*-
 This keeps things simple, but as I think through the consequences I realise that it means that the contents of the included file will be subject to the translation process, which would result in a complete mess when our use-case is including a file which sometimes includes our un-translated codes.
 -*/
-
