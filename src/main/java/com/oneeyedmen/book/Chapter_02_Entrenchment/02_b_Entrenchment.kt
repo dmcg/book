@@ -8,4 +8,5 @@ Returning to this project after a little time, I review the code and the prose, 
 2. The contents of the approved files are not shown (as I write this they are represented by `[TODO]` markers).
 
 Markdown doesn't have any standard way of representing included text, but as we're reading and writing every line it shouldn't be too hard to do this ourselves. That leaves the escaping as a bigger risk, as I don't have a clue what to do.
+
 -*/

@@ -1,6 +1,7 @@
 package com.oneeyedmen.book.Chapter_02_Entrenchment
 
 import com.oneeyedmen.book.Chapter_01_Spike.ContextD1
+import com.oneeyedmen.book.Chapter_01_Spike.ContextD1.firstNonSpaceCharsAre
 import java.io.File
 
 /*-
@@ -26,9 +27,8 @@ object ContextA1 {
             absoluteFile.parentFile.mkdirs()
         }
 
-        val translatedLines: Sequence<String> = ContextD1.sourceFilesIn(srcDir)
-            .flatMap { ContextD1.translate(it).plus("\n") }
-            .filterNotNull()
+        val translatedLines: Sequence<String> = sourceFilesIn(srcDir)
+            .flatMap { translate(it).plus("\n") }
 
         outFile.bufferedWriter(Charsets.UTF_8).use { writer ->
             translatedLines.forEach {
@@ -37,7 +37,12 @@ object ContextA1 {
         }
     }
     //`
+
+    // NB - actually uses fixed version from ContextA2
+    private fun translate(file: File) = ContextA2.translate(file)
+    private fun sourceFilesIn(dir: File) = ContextD1.sourceFilesIn(dir)
 }
+
 /*-
 I test this using IntelliJ's runner and then go rummaging in the far corners of the Internet to find out how to invoke Gradle to both build and then run this class. Full-disclosure, this led to over an hour of trying to work out what Gradle was building where - code can seem very simple compared to build systems. As I know that my chances of remembering what incantations are required are low, I capture the required commands in a top level script in the project directory -
 
@@ -49,5 +54,43 @@ echo Zip file built in build/distributions
 echo Start script built in build/install/book/bin/book
 ```
 
-I then put on my blogger's hat and write a couple of articles on the relationship between objects and functions in Kotlin, using the same formatting rules as this book. It goes pretty well, giving me more confidence that I could write a whole book this way.
+I then put on my blogger's hat and write a couple of articles on the relationship between objects and functions in Kotlin, using the same formatting rules as this book. It goes pretty well, giving me more confidence that I could write a whole book this way, but it does reveal a minor issue in the translation.
+
+It turns out that my blog publishing software, unlike IntelliJ's Markdown renderer, requires a blank line before a code block. Our current translate logic removes blank lines. The fix is simple - output any blank sources lines.
 -*/
+
+object ContextA2 {
+    fun translate(source: File): Sequence<String> = translate(source.readText(Charsets.UTF_8))
+
+    fun translate(sourceLines: String): Sequence<String> {
+        var inCodeBlock = false
+        var inTextBlock = false
+        return sourceLines.splitToSequence("\n")
+            .map { line ->
+                when {
+                    !inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                        inCodeBlock = true
+                        "```kotlin"
+                    }
+                    inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                        inCodeBlock = false
+                        "```"
+                    }
+                    !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
+                        inTextBlock = true
+                        null
+                    }
+                    inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
+                        inTextBlock = false
+                        null
+                    }
+                    inTextBlock -> line
+                    inCodeBlock -> line
+                    line.isBlank() -> line // our new line
+                    else -> null
+                }
+            }
+            .filterNotNull()
+    }
+
+}

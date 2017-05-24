@@ -182,10 +182,18 @@ object ContextC4 {
         return source.split("\n")
             .map {
                 when {
-                    !inCodeBlock && it.startsWith("//`") -> { inCodeBlock = true; "```kotlin"}
-                    inCodeBlock && it.startsWith("//`") -> { inCodeBlock = false; "```"}
-                    !inTextBlock && it.startsWith("/*-") -> { inTextBlock = true; ""}
-                    inTextBlock && it.startsWith("-*/") -> { inTextBlock = false; ""}
+                    !inCodeBlock && it.startsWith("//`") -> {
+                        inCodeBlock = true; "```kotlin"
+                    }
+                    inCodeBlock && it.startsWith("//`") -> {
+                        inCodeBlock = false; "```"
+                    }
+                    !inTextBlock && it.startsWith("/*-") -> {
+                        inTextBlock = true; ""
+                    }
+                    inTextBlock && it.startsWith("-*/") -> {
+                        inTextBlock = false; ""
+                    }
                     inTextBlock -> it
                     inCodeBlock -> it
                     else -> ""
@@ -211,7 +219,7 @@ Now of course, I have to try the code on the file that I'm typing into right now
 object ContextC5 {
 
     @JvmStatic
-    //`
+        //`
     fun main(args: Array<String>) {
         val markdown = translate(File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike/01_c_Spike-First-Attempt-at-Publishing.kt").readText())
         File("build/delme").apply {
@@ -272,10 +280,22 @@ and implement quickly and dirtyly to see if it's good.
         return source.split("\n")
             .map {
                 when {
-                    !inCodeBlock && it.trim().startsWith("//`") -> { inCodeBlock = true; "```kotlin"}
-                    inCodeBlock && it.trim().startsWith("//`") -> { inCodeBlock = false; "```"}
-                    !inTextBlock && it.trim().startsWith("/*-") -> { inTextBlock = true; ""}
-                    inTextBlock && it.trim().startsWith("-*/") -> { inTextBlock = false; ""}
+                    !inCodeBlock && it.trim().startsWith("//`") -> {
+                        inCodeBlock = true
+                        "```kotlin"
+                    }
+                    inCodeBlock && it.trim().startsWith("//`") -> {
+                        inCodeBlock = false
+                        "```"
+                    }
+                    !inTextBlock && it.trim().startsWith("/*-") -> {
+                        inTextBlock = true
+                        ""
+                    }
+                    inTextBlock && it.trim().startsWith("-*/") -> {
+                        inTextBlock = false
+                        ""
+                    }
                     inTextBlock -> it
                     inCodeBlock -> it
                     else -> ""
@@ -330,10 +350,22 @@ object ContextC7 {
         return source.split("\n")
             .map { line ->
                 when {
-                    !inCodeBlock && line.firstNonSpaceCharsAre("//`") -> { inCodeBlock = true; "```kotlin"}
-                    inCodeBlock && line.firstNonSpaceCharsAre("//`") -> { inCodeBlock = false; "```"}
-                    !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> { inTextBlock = true; ""}
-                    inTextBlock && line.firstNonSpaceCharsAre("-*/") -> { inTextBlock = false; ""}
+                    !inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                        inCodeBlock = true
+                        "```kotlin"
+                    }
+                    inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                        inCodeBlock = false
+                        "```"
+                    }
+                    !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
+                        inTextBlock = true
+                        ""
+                    }
+                    inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
+                        inTextBlock = false
+                        ""
+                    }
                     inTextBlock -> line
                     inCodeBlock -> line
                     else -> ""
