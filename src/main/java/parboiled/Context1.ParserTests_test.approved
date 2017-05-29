@@ -1,0 +1,14 @@
+[Expression] '1+2'
+  [Term] '1'
+    [Factor] '1'
+      [Number] '1'
+        [0..9] '1'
+    [ZeroOrMore]
+  [ZeroOrMore] '+2'
+    [Sequence] '+2'
+      [[+-]] '+'
+      [Term] '2'
+        [Factor] '2'
+          [Number] '2'
+            [0..9] '2'
+        [ZeroOrMore]

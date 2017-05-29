@@ -341,17 +341,17 @@ object ContextG7 {
     sealed class State {
         fun advance(line: String): Pair<State, String?> {
             return when {
-                this !is State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                    State.InCodeBlock to "```kotlin"
+                this !is InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    InCodeBlock to "```kotlin"
                 }
-                this is State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                    State.Other to "```"
+                this is InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    Other to "```"
                 }
                 line.firstNonSpaceCharsAre("/*-") -> {
-                    State.InTextBlock to null
+                    InTextBlock to null
                 }
                 line.firstNonSpaceCharsAre("-*/") -> {
-                    State.Other to null
+                    Other to null
                 }
                 else -> {
                     this to outputFor(line)
@@ -398,15 +398,15 @@ object ContextG8 {
     //`
     sealed class State {
         open fun advance(line: String): Pair<State, String?> = when {
-            line.firstNonSpaceCharsAre("//`") -> State.InCodeBlock to "```kotlin"
-            line.firstNonSpaceCharsAre("/*-") -> State.InTextBlock to null
-            line.firstNonSpaceCharsAre("-*/") -> State.Other to null
+            line.firstNonSpaceCharsAre("//`") -> InCodeBlock to "```kotlin"
+            line.firstNonSpaceCharsAre("/*-") -> InTextBlock to null
+            line.firstNonSpaceCharsAre("-*/") -> Other to null
             else -> this to outputFor(line)
         }
         abstract fun outputFor(line: String): String?
 
         object InCodeBlock : State() {
-            override fun advance(line: String) = if (line.firstNonSpaceCharsAre("//`")) State.Other to "```"
+            override fun advance(line: String) = if (line.firstNonSpaceCharsAre("//`")) Other to "```"
                 else super.advance(line)
             override fun outputFor(line: String) = line
         }
@@ -439,8 +439,11 @@ object ContextG8 {
 To be honest I'm not entirely sure that this is better than the first formulation. That had the advantage of being transparent - you could see what is was doing. Now we have polymorphism and pairs and not-very well-named methods in the mix - they had better pull their weight if we are going to decide that this excursion was worthwhile. I wouldn't be sorry to just revert this refactor - if nothing else I've realised that the code had redundant logic that when removed would improve the old version.
 
 Luckily it's lunchtime, so I get a natural break to allow my brain to mull over what I have done and see if it's helpful.
--*/
 
+...
+
+I had a chance on a long bike ride to think things through, and came up with a plan, but trying that really didn't work so I won't bore you with it. I talk things over with Alan, who has a PhD in Computer Science, and he reminds me that he always said that I should use the right tool for the job - a proper parser. Now my education was as a physicist, so I have large gaps in my knowledge of proper computing, and I know that many other programmers I respect consider that being able to devise and parse little languages is a sign of maturity. When Alan offers to pair with me to use introduce a pukka parser I figure that I'd be a fool not to take the learning opportunity, even though it will potentially delay my goal of getting a review copy of Chapter One published.
+-*/
 
 
 
