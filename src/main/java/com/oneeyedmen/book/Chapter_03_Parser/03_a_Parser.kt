@@ -7,8 +7,8 @@ import org.parboiled.Parboiled
 import org.parboiled.Rule
 import org.parboiled.annotations.BuildParseTree
 import org.parboiled.parserunners.ReportingParseRunner
-import com.oneeyedmen.book.Chapter_03_Parser.Context4.TextBlock
-import com.oneeyedmen.book.Chapter_03_Parser.Context4.BookParser
+import com.oneeyedmen.book.Chapter_03_Parser.ContextA4.TextBlock
+import com.oneeyedmen.book.Chapter_03_Parser.ContextA4.BookParser
 import org.parboiled.support.ParseTreeUtils
 import org.parboiled.support.Var
 import kotlin.test.assertEquals
@@ -150,7 +150,7 @@ I won't take this opportunity to explain PEG parsers, largely because you alread
 Reading the documentation shows that we can add `Actions` in `Sequence`s to capture results, which are added to a stack that is made available in the `parsingResult`. Let's define a `TextBlock` class to hold the lines that we're interested in and ask Parboiled to push one on the stack when when the result is available.
 -*/
 
-object Context4 {
+object ContextA4 {
     //`
     data class TextBlock(val lines: MutableList<String>) {
         constructor(vararg lines: String) : this(mutableListOf(*lines))
@@ -191,7 +191,7 @@ object Context4 {
 Now our test can access the result stack and actually make assertions.
 -*/
 
-object Context5 {
+object ContextA5 {
 
     //`
     class ParserTests {
