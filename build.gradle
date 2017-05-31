@@ -27,6 +27,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
     }
 }
 
@@ -37,6 +38,11 @@ idea {
         jdkName = '1.8'
         languageLevel = '1.8'
     }
+}
+
+apply plugin: "kotlin-allopen"
+allOpen {
+    annotation("org.parboiled.annotations.BuildParseTree")
 }
 
 task wrapper(type: Wrapper) {

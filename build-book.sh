@@ -4,5 +4,5 @@ build/install/book/bin/book src/main/java/com/oneeyedmen/book/Chapter_01_Spike b
 
 build/install/book/bin/book src/main/java/com/oneeyedmen/book/Chapter_02_Entrenchment build/book/Chapter_02_Entrenchment.md
 
-build/install/book/bin/book src/main/java/com/oneeyedmen/book/Chapter_03_Parser build/book/Chapter_02_Parser.md
+build/install/book/bin/book src/main/java/com/oneeyedmen/book/Chapter_03_Parser build/book/Chapter_03_Parser.md
 

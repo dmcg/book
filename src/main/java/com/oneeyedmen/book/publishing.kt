@@ -1,8 +1,8 @@
 @file:JvmName("Main")
-import com.oneeyedmen.book.Chapter_03_Parser.ContextC3
+import com.oneeyedmen.book.Chapter_03_Parser.main
 
 fun main(args: Array<String>) {
-    ContextC3.main(args)
+    main(args)
 }
 
 

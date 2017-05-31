@@ -188,7 +188,7 @@ object ContextA4 {
 }
 
 /*-
-Now our test can access the result stack and actually make assertions.
+Now our test can access the result stack and actually make assertions. As `TextBlock` is a `data` class we get a working definition of `equals` for free.
 -*/
 
 object ContextA5 {
