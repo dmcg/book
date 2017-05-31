@@ -78,7 +78,7 @@ object ContextB1 {
 
 /*-
 and now duplicate-and-edit an implementation
- */
+-*/
 
 object ContextB2 {
 
@@ -356,7 +356,6 @@ object ContextB4 {
         constructor(vararg lines: String) : this(mutableListOf(*lines))
     }
 
-
     @BuildParseTree
     open class BookParser : BaseParser<Any>() {
 
@@ -411,7 +410,7 @@ Well that went surprisingly well, in that it passes the tests and is pretty unde
 val result = Var(CodeBlock())
 \\`
 
-expressions - this must be something to do with the aggressive bytecode manipulation that Parboiled is performing. I expect that we will either understand this or be bitten by it again before the end of this project.
+expressions - this must be something to do with the aggressive bytecode manipulation that Parboiled is performing. I expect that I will either understand this or be bitten by it again before the end of this project.
 
 I'm a little dissatisfied by the fact that the lines in the `Block` objects contain the line separators and indents, but it's easier to throw away information than try to reconstruct it, so reason that it should stay at least for now. At least the tests document the behaviour.
 -*/

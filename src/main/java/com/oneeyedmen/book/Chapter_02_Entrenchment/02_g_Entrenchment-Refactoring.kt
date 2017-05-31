@@ -83,7 +83,7 @@ object ContextG1 {
 }
 
 /*-
-I never was happy with the `translate` method - let's refactor to see what comes out. I don't believe that we can be in a code block and a text block at the same time, but the code doesn't express this. I'm going to replace the two variables with one, first by replacing inCodeBlock with an object. Note that each one of these steps keeps the tests passing.
+I never was happy with the `translate` method - let's refactor to see what comes out. I don't believe that we can be in a code block and a text block at the same time, but the code doesn't express this. I'm going to replace the two variables with one, first by replacing `inCodeBlock` with an object. Note that each one of these steps keeps the tests passing.
 -*/
 
 object ContextG2 {
@@ -127,7 +127,7 @@ object ContextG2 {
 }
 
 /*-
-Then inTextBlock. It turns out that we don't really care if we are in a text block or not when we see it's end markers, so we can also simplify the when clauses and keep the tests passing.
+Then `inTextBlock`. It turns out that we don't really care if we are in a text block or not when we see it's end markers, so we can also simplify the when clauses and keep the tests passing.
 -*/
 
 object ContextG3 {
