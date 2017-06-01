@@ -43,6 +43,7 @@ idea {
 apply plugin: "kotlin-allopen"
 allOpen {
     annotation("org.parboiled.annotations.BuildParseTree")
+    annotation("com.oneeyedmen.book.AllOpen")
 }
 
 task wrapper(type: Wrapper) {

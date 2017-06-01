@@ -18,6 +18,7 @@
           <option name="pluginOptions">
             <array>
               <option value="plugin:org.jetbrains.kotlin.allopen:annotation=org.parboiled.annotations.BuildParseTree" />
+              <option value="plugin:org.jetbrains.kotlin.allopen:annotation=com.oneeyedmen.book.AllOpen" />
             </array>
           </option>
           <option name="pluginClasspaths">

@@ -1,5 +1,6 @@
 package com.oneeyedmen.book.Chapter_03_Parser
 
+import com.oneeyedmen.book.AllOpen
 import org.junit.Test
 import org.parboiled.BaseParser
 import org.parboiled.Parboiled
@@ -271,6 +272,7 @@ I test this with an unindented code block, and with mixed text and code blocks, 
 -*/
 
 object ContextB4 {
+
     //`
     class ParserTests {
 
