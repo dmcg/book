@@ -1,5 +1,7 @@
 package com.oneeyedmen.book.Chapter_03_Parser
 
+import com.oneeyedmen.book.Chapter_03_Parser.ContextA4.BookParser
+import com.oneeyedmen.book.Chapter_03_Parser.ContextA4.TextBlock
 import com.oneeyedmen.book.approvalsRule
 import org.junit.Test
 import org.parboiled.BaseParser
@@ -7,8 +9,6 @@ import org.parboiled.Parboiled
 import org.parboiled.Rule
 import org.parboiled.annotations.BuildParseTree
 import org.parboiled.parserunners.ReportingParseRunner
-import com.oneeyedmen.book.Chapter_03_Parser.ContextA4.TextBlock
-import com.oneeyedmen.book.Chapter_03_Parser.ContextA4.BookParser
 import org.parboiled.support.ParseTreeUtils
 import org.parboiled.support.Var
 import kotlin.test.assertEquals
@@ -72,10 +72,11 @@ The only change we had to make from IntelliJ's conversion of the Java to Kotlin 
 
 We used another Approvals Test here so that we could record the output from `parseNodeTree` for your benefit - it looks like this
 
-```
+````text
+-*/
 //#include "Context1.ParserTests_test.approved"
-```
-
+/*-
+````
 which is a representation of the `Rule`s that matched the parsed text `1+2`.
 
 So far so good.
