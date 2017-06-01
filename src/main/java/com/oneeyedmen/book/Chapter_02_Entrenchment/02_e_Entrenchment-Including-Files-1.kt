@@ -1,7 +1,6 @@
 package com.oneeyedmen.book.Chapter_02_Entrenchment
 
 import com.oneeyedmen.book.Chapter_01_Spike.ContextC7
-import com.oneeyedmen.book.Chapter_01_Spike.ContextC7.firstNonSpaceCharsAre
 import com.oneeyedmen.book.approvalsRule
 import org.junit.Ignore
 import org.junit.Rule
@@ -12,7 +11,7 @@ To review - the issue is that currently the book text has `[TODO]` markers in pl
 
 Our approach to special codes so far has been to enrich Kotlin comments, so that the compiler ignores our information. It's easy to extend that approach, and I settle on
 
-```
+```text
 //#include "filename.txt"
 ```
 
@@ -148,7 +147,7 @@ It's worth noting at this point that what to put in this file took some thought.
 
 Where to put the file also raises some questions. The files that we want to include are currently in the same directory as the file that includes them. Until I have a need for another behaviour I guess that
 
-```
+```text
 //#include "filename.txt"
 ```
 

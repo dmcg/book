@@ -4,7 +4,7 @@ package com.oneeyedmen.book.Chapter_02_Entrenchment
 /*-
 What was the problem again? I want to be able to write express in Markdown the syntax for my 'book text' markers, namely `/*-` and `-*/`, but in a quoted section, so that you can read
 
-```
+```text
 ⁠/*-
 this is book text
 ⁠-*/

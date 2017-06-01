@@ -3,15 +3,9 @@ package com.oneeyedmen.book.Chapter_03_Parser
 import com.oneeyedmen.book.Chapter_03_Parser.ContextB4.Block
 import com.oneeyedmen.book.Chapter_03_Parser.ContextB4.CodeBlock
 import com.oneeyedmen.book.Chapter_03_Parser.ContextB4.TextBlock
-import com.oneeyedmen.book.Chapter_03_Parser.ContextC2.render
 import org.junit.Test
-import org.parboiled.BaseParser
 import org.parboiled.Parboiled
-import org.parboiled.Rule
-import org.parboiled.annotations.BuildParseTree
 import org.parboiled.parserunners.ReportingParseRunner
-import org.parboiled.support.Var
-import java.io.File
 import kotlin.test.assertEquals
 
 /*-

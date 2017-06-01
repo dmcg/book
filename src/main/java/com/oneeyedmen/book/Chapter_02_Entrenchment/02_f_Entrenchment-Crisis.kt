@@ -5,7 +5,7 @@ So it's back to the drawing board.
 
 I'm mulling it over when I realise that I now have two problems caused by translating our codes when we don't want them translated - this, and the last issue that I had solved using the Unicode Word Joiner. In both cases the only time we see the issue in practice is
 
-```
+```text
 inside Markdown quote blocks
 ```
 

@@ -46,7 +46,15 @@ object ContextC1 {
 }
 
 /*-
-Here I've written an example file content as a Kotlin here document, and then an identity translate function. Running the test creates a file `CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual` with the contents of the source file and fails the test. We can make the test pass by approving the content with
+Here I've written an example file content as a Kotlin here document, and then an identity translate function. Running the test creates a file `CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual` with the contents
+
+````text
+-*/
+//#include "ContextC1.CodeExtractorTests_writes_a_markdown_file_from_Kotlin_file.approved"
+/*-
+````
+
+which is to say the source, as translate does nothing to it. The test fails, as there was no approved contents to compare with the actual - we can make it pass by approving the content with
 
 ```bash
 cp 'CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual' 'CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.approved'
@@ -138,9 +146,11 @@ object ContextC3 {
 /*-
 The first run of the test fails as the actual file is different from the approved - inspecting it I can see that the differences are indeed the stripped out block comment markers - the file is now
 
-```
-[TODO]
-```
+````text
+-*/
+//#include "ContextC3.CodeExtractorTests_writes_a_markdown_file_from_Kotlin_file.approved"
+/*-
+````
 
 Let's get to work putting the code between our special markers into a Markdown code block.
 -*/
@@ -211,9 +221,11 @@ object ContextC4 {
 /*-
 Now I won't pretend that was easy to write, or that I'm proud of it, but it does work, yielding
 
-```
-[TODO]
-```
+````text
+-*/
+//#include "ContextC4.CodeExtractorTests_writes_a_markdown_file_from_Kotlin_file.approved"
+/*-
+````
 
 Note that I've chosen to leave blank lines where markers and ignored text are for now, as they make making sense of the output easier.
 
