@@ -6,8 +6,7 @@ import org.junit.Test
 import java.io.File
 
 /*-
-Combining Files
----------------
+## Combining Files
 
 We're almost done in this first stint. The next thing I need to do to increase my confidence that this is working is to combine all the sections of this chapter into a whole, so that I and others can read it.
 

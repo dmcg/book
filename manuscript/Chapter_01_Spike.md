@@ -1,5 +1,4 @@
-Chapter 1 - Spike
-============
+# Chapter 1 - Spike
 
 I'm writing this in Lisbon airport, an hour before my flight back to London is due to leave. On this holiday I've decided I'm pretty committed to writing this book, and now I'm wondering what technologies I should use for its production.
 
@@ -10,8 +9,7 @@ I know that this book will take a long time to write, and I also know that it wi
 And that's why these words are being written into the IntelliJ IDE rather than Word. They are plain text now, although I'm already thinking of them as Markdown - I just haven't *needed* to emphasise anything yet. I suspect that this prose will end up as comments in Kotlin source files, and that some sort of build system will put the book together for me. In fact, if you're reading this on paper you can't see it yet, but this file is already surrounded by a Gradle build and is in the context of a Git repository. This is the way that modern programming projects in Kotlin will start, and so it feels rather fitting that the book does too.
 
 
-The First Kotlin File
----------------------
+## The First Kotlin File
 
 Risk reduction is high on the list of modern programming concerns. I want to know that the idea of embedding the content of this book in its own source code is tenable. So I'm going to start with a spike - a prototype that goes deep into the heart of the problem but doesn't attempt breadth. This way we hope to find major problems that might scupper an idea with the least effort.
 
@@ -45,8 +43,7 @@ for now and see how it goes.
 
 It occurs to me that this is the opposite of the normal Markdown approach, where we can embed code inside blocks, with the text as the top level. Here the code is the top level, and the Markdown is embedded in it. The advantage is that we have to do nothing to our text to compile it, the disadvantage is that something is going to have to process the files to do something with the text before we can render the Markdown. That seems reasonable to me though, as I write code for a living, and an awful lot of that code does just this sort of thing to text. In fact we now have the opportunity to practice explaining the writing of code on the code that publishes itself.
 
-First Attempt at Publishing
----------------------------
+## First Attempt at Publishing
 
 Let's write some code to take a mixed prose and source file and write a Markdown version. I'm not entirely sure what that output should look like yet, but I'll know it when I see it. This is the sweet spot for Approvals Tests, which will allow us to make rapid progress but at the same time know when we've slipped back.
 
@@ -333,8 +330,7 @@ It feels like there is something general trying to get out of that `inBlock..` c
 ```
 
 
-Combining Files
----------------
+## Combining Files
 
 We're almost done in this first stint. The next thing I need to do to increase my confidence that this is working is to combine all the sections of this chapter into a whole, so that I and others can read it.
 
@@ -481,8 +477,7 @@ this is book text
 
 the markers were interpreted as markers and messed up the output. I add a pipe character `|` to the beginning of those marker lines to get things running. I don't have a solution to this at the moment, bar the pipe, but suspect that we'll need some way of escaping our own codes. I'm trusting that as I gain fluency with Markdown something clever will come up. If you can see the markers without `|`s above I guess I succeeded in the end.
 
-Conclusions
------------
+## Conclusions
 
 What has this chapter been trying to prove?
 

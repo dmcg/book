@@ -6,8 +6,7 @@ import org.junit.Test
 import java.io.File
 
 /*-
-First Attempt at Publishing
----------------------------
+## First Attempt at Publishing
 
 Let's write some code to take a mixed prose and source file and write a Markdown version. I'm not entirely sure what that output should look like yet, but I'll know it when I see it. This is the sweet spot for Approvals Tests, which will allow us to make rapid progress but at the same time know when we've slipped back.
 

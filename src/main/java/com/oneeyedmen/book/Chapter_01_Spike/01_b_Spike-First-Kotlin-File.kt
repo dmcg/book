@@ -1,8 +1,7 @@
 package com.oneeyedmen.book.Chapter_01_Spike
 
 /*-
-The First Kotlin File
----------------------
+## The First Kotlin File
 
 Risk reduction is high on the list of modern programming concerns. I want to know that the idea of embedding the content of this book in its own source code is tenable. So I'm going to start with a spike - a prototype that goes deep into the heart of the problem but doesn't attempt breadth. This way we hope to find major problems that might scupper an idea with the least effort.
 

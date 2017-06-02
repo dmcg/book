@@ -1,6 +1,5 @@
 /*-
-Chapter 1 - Spike
-============
+# Chapter 1 - Spike
 
 I'm writing this in Lisbon airport, an hour before my flight back to London is due to leave. On this holiday I've decided I'm pretty committed to writing this book, and now I'm wondering what technologies I should use for its production.
 

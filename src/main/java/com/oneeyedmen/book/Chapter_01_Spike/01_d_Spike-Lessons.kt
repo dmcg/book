@@ -1,8 +1,7 @@
 package com.oneeyedmen.book.Chapter_01_Spike
 
 /*-
-Conclusions
------------
+## Conclusions
 
 What has this chapter been trying to prove?
 

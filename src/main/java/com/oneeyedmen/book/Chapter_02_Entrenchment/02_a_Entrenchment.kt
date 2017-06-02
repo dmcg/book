@@ -5,6 +5,8 @@ import com.oneeyedmen.book.Chapter_01_Spike.ContextD1.firstNonSpaceCharsAre
 import java.io.File
 
 /*-
+# Chapter 2 - Entrenchment
+
 Writing software is hard. We probably agree on that - I know that I find it hard, and you probably aren't investing time reading a book on a subject that you have no problem mastering. One of the many many hard problems is deciding, minute by minute, hour by hour, day by, well, you get the drift, what we should do next.
 
 So far we have, if you'll forgive a military metaphor, taken some ground. Our previous foray resulted in some confidence that this book might be worth writing, and that the technology and process I proposed might do the job. But in order to gain this confidence we have overextended a bit. Some things don't work at all, and others are not implemented well.

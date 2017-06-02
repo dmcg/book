@@ -15,6 +15,8 @@ import kotlin.test.assertEquals
 import kotlin.test.fail
 
 /*-
+# Chapter 3 - Parser
+
 The story so far. I have an-almost functioning parser for my prose-in-code format, but it keeps on collapsing under its own weight. I'd like to ignore this and get on with publishing the first chapter, but I can't see how to add the features that I need to make this a reality without being left with an irredeemable mess. At this point I'm offered some help to show me how to use a grown-up parser, and I leap at the chance.
 
 Alan and I go looking for parser libraries for Java. ANTLR (ANother Tool for Language Recognition) is the standard, but it is a parser generator - meaning that it generates Java source files that you have to compile. For a large project that might be acceptable, but here, its a build step too far.
