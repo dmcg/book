@@ -138,7 +138,6 @@ which by removing clutter lets us focus on what we are really trying to demonstr
 Speaking of which, we can't really approve the output for `includes_a_file` as we don't. In order to get a little further lets create a file next to this Kotlin file with some text to be included
 
 ```
-[TODO]
 included file first line
 included file last line
 ```
