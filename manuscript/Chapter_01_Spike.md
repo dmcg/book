@@ -83,7 +83,7 @@ OK, time to write some code.
 
 Here I've written an example file content as a Kotlin here document, and then an identity translate function. Running the test creates a file `CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual` with the contents
 
-````text
+~~~text
 /*-
 Title
 =====
@@ -98,7 +98,7 @@ fun aFunction() {
 /*-
 More book text.
 -*/
-````
+~~~
 
 which is to say the source, as translate does nothing to it. The test fails, as there was no approved contents to compare with the actual - we can make it pass by approving the content with
 
@@ -147,7 +147,7 @@ Now we can first implement the code to strip out the block comments that hide ou
 
 The first run of the test fails as the actual file is different from the approved - inspecting it I can see that the differences are indeed the stripped out block comment markers - the file is now
 
-````text
+~~~text
 package should.not.be.shown
 Title
 =====
@@ -161,7 +161,7 @@ fun aFunction() {
 }
 //`
 More book text.
-````
+~~~
 
 Let's get to work putting the code between our special markers into a Markdown code block.
 
@@ -199,7 +199,7 @@ Let's get to work putting the code between our special markers into a Markdown c
 
 Now I won't pretend that was easy to write, or that I'm proud of it, but it does work, yielding
 
-````text
+~~~
 
 
 Title
@@ -216,7 +216,7 @@ fun aFunction() {
 ```
 
 More book text.
-````
+~~~
 
 Note that I've chosen to leave blank lines where markers and ignored text are for now, as they make making sense of the output easier.
 
@@ -448,7 +448,7 @@ I had to up update the test as well as the code to account for the change to the
 
 and the approved file shows no blank lines where we the skip a line in the source
 
-````text
+~~~text
 Title
 =====
 This is Markdown paragraph
@@ -460,7 +460,7 @@ This is Markdown paragraph
   }
 ```
 More book text.
-````
+~~~
 
 Running the code and looking at the rendered Markdown with IntelliJ's Markdown plugin I see one glaring problem. Where one file ends and another starts we need to separate them with a blank line if the combined Markdown isn't to be interpreted as a contiguous paragraph. Let's fix that by adding a blank line to the end of each file's lines.
 

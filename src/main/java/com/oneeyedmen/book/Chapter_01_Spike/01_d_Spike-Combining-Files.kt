@@ -131,11 +131,11 @@ object ContextD2 {
 /*-
 and the approved file shows no blank lines where we the skip a line in the source
 
-````text
+~~~text
 -*/
 //#include "ContextD2.CodeExtractorTests_writes_a_markdown_file_from_Kotlin_file.approved"
 /*-
-````
+~~~
 
 Running the code and looking at the rendered Markdown with IntelliJ's Markdown plugin I see one glaring problem. Where one file ends and another starts we need to separate them with a blank line if the combined Markdown isn't to be interpreted as a contiguous paragraph. Let's fix that by adding a blank line to the end of each file's lines.
 -*/

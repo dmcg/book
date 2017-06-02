@@ -50,7 +50,7 @@ The only change we had to make from IntelliJ's conversion of the Java to Kotlin 
 
 We used another Approvals Test here so that we could record the output from `parseNodeTree` for your benefit - it looks like this
 
-````text
+~~~text
 [Expression] '1+2'
   [Term] '1'
     [Factor] '1'
@@ -65,7 +65,7 @@ We used another Approvals Test here so that we could record the output from `par
           [Number] '2'
             [0..9] '2'
         [ZeroOrMore]
-````
+~~~
 which is a representation of the `Rule`s that matched the parsed text `1+2`.
 
 So far so good.
@@ -779,11 +779,11 @@ Had I had any tests for the top-level rendering this would have been obvious. At
 
 After an unconscionable amount of time I'm finally in a position to render the first chapter well enough to be reviewed, so I insert the required `//#include` directives and check the rendering. There is still an issue with the Markdown renderer interpreting
 
-````markdown
+~~~markdown
 ``` three quotes in code blocks
-````
+~~~
 
-which occurs when we include some Markdown inside files, but Googling reveals that I can mark those blocks with four `````'s.
+which occurs when we include some Markdown inside files, but Googling reveals that I can mark those blocks with three `~~~`'s.
 
 Of course now I have another two chapters of material generated in my attempt to render the first, so I fix those up too and package up the three Markdown files for review.
 

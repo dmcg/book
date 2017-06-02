@@ -72,11 +72,11 @@ The only change we had to make from IntelliJ's conversion of the Java to Kotlin 
 
 We used another Approvals Test here so that we could record the output from `parseNodeTree` for your benefit - it looks like this
 
-````text
+~~~text
 -*/
 //#include "Context1.ParserTests_test.approved"
 /*-
-````
+~~~
 which is a representation of the `Rule`s that matched the parsed text `1+2`.
 
 So far so good.
