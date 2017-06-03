@@ -178,7 +178,3 @@ Had I had any tests for the top-level rendering this would have been obvious. At
 
     private fun File.isSourceFile() = isFile && !isHidden && name.endsWith(".kt")
 }
-
-/*-
-
--*/
