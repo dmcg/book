@@ -1,4 +1,4 @@
-# Publishing
+# Chapter 4 - Publishing
 
 After an unconscionable amount of time I'm finally in a position to render the first chapter well enough to be reviewed, so I insert the required `//#include` directives and check the rendering. There is still an issue with the Markdown renderer interpreting
 

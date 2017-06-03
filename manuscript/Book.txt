@@ -4,3 +4,4 @@ Chapter_02_Entrenchment.md
 Chapter_03_Parser.md
 Chapter_04_Publishing.md
 Chapter_05_v1_1.md
+Chapter_06_a_Unindent_Source.md

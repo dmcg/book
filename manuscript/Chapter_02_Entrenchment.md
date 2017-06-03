@@ -12,21 +12,21 @@ Our current main method is hard-coded to the source path in this project. Findin
 
 
 ```kotlin
-    fun main(args: Array<String>) {
-        val srcDir = File(args[0])
-        val outFile = File(args[1]).apply {
-            absoluteFile.parentFile.mkdirs()
-        }
+fun main(args: Array<String>) {
+    val srcDir = File(args[0])
+    val outFile = File(args[1]).apply {
+        absoluteFile.parentFile.mkdirs()
+    }
 
-        val translatedLines: Sequence<String> = sourceFilesIn(srcDir)
-            .flatMap { translate(it).plus("\n") }
+    val translatedLines: Sequence<String> = sourceFilesIn(srcDir)
+        .flatMap { translate(it).plus("\n") }
 
-        outFile.bufferedWriter(Charsets.UTF_8).use { writer ->
-            translatedLines.forEach {
-                writer.appendln(it)
-            }
+    outFile.bufferedWriter(Charsets.UTF_8).use { writer ->
+        translatedLines.forEach {
+            writer.appendln(it)
         }
     }
+}
 ```
 
 I test this using IntelliJ's runner and then go rummaging in the far corners of the Internet to find out how to invoke Gradle to both build and then run this class. Full-disclosure, this led to over an hour of trying to work out what Gradle was building where - code can seem very simple compared to build systems. As I know that my chances of remembering what incantations are required are low, I capture the required commands in a top level script in the project directory -
@@ -100,50 +100,50 @@ as worth trying.
 Let's get on and write a new test for including files.
 
 ```kotlin
-    class CodeExtractorTests {
+class CodeExtractorTests {
 
-        @Rule @JvmField val approver = approvalsRule()
+    @Rule @JvmField val approver = approvalsRule()
 
-        @Test fun writes_a_markdown_file_from_Kotlin_file() {
-            val source = """
-            |package should.not.be.shown
-            |/*-
-            |Title
-            |=====
-            |
-            |This is Markdown paragraph
-            |-*/
-            |
-            |object HiddenContext {
-            |  //`
-            |  /* This is a code comment
-            |  */
-            |  fun aFunction() {
-            |     return 42
-            |  }
-            |  //`
-            |}
-            |
-            |/*-
-            |More book text.
-            |-*/
-            """.trimMargin()
-            approver.assertApproved(translate(source).joinToString("\n"))
-        }
-
-        @Test fun includes_a_file() {
-            val source = """
-            |/*-
-            |Book text
-            |
-            |//#include "included-file.txt"
-            |
-            |more text
-            |/*-
-            """.trimMargin()
-            approver.assertApproved(translate(source).joinToString("\n"))
-        }
+    @Test fun writes_a_markdown_file_from_Kotlin_file() {
+        val source = """
+        |package should.not.be.shown
+        |/*-
+        |Title
+        |=====
+        |
+        |This is Markdown paragraph
+        |-*/
+        |
+        |object HiddenContext {
+        |  //`
+        |  /* This is a code comment
+        |  */
+        |  fun aFunction() {
+        |     return 42
+        |  }
+        |  //`
+        |}
+        |
+        |/*-
+        |More book text.
+        |-*/
+        """.trimMargin()
+        approver.assertApproved(translate(source).joinToString("\n"))
     }
+
+    @Test fun includes_a_file() {
+        val source = """
+        |/*-
+        |Book text
+        |
+        |//#include "included-file.txt"
+        |
+        |more text
+        |/*-
+        """.trimMargin()
+        approver.assertApproved(translate(source).joinToString("\n"))
+    }
+}
 ```
 
 Whereas previously we had a single test for all of our formatting, #include seems like an orthogonal concern, so it gets its own test.
@@ -151,52 +151,52 @@ Whereas previously we had a single test for all of our formatting, #include seem
 Before we go on I decide to remove the duplication in the test methods
 
 ```kotlin
-    class CodeExtractorTests {
+class CodeExtractorTests {
 
-        @Rule @JvmField val approver = approvalsRule()
+    @Rule @JvmField val approver = approvalsRule()
 
-        @Test fun writes_a_markdown_file_from_Kotlin_file() {
-            checkApprovedTranslation("""
-            |package should.not.be.shown
-            |/*-
-            |Title
-            |=====
-            |
-            |This is Markdown paragraph
-            |-*/
-            |
-            |object HiddenContext {
-            |  //`
-            |  /* This is a code comment
-            |  */
-            |  fun aFunction() {
-            |     return 42
-            |  }
-            |  //`
-            |}
-            |
-            |/*-
-            |More book text.
-            |-*/
-            """)
-        }
-
-        @Test fun includes_a_file() {
-            checkApprovedTranslation("""
-            |/*-
-            |Book text
-            |
-            |//#include "included-file.txt"
-            |
-            |more text
-            |/*-
-            """)
-        }
-
-        private fun checkApprovedTranslation(source: String) {
-            approver.assertApproved(translate(source.trimMargin()).joinToString("\n"))
-        }
+    @Test fun writes_a_markdown_file_from_Kotlin_file() {
+        checkApprovedTranslation("""
+        |package should.not.be.shown
+        |/*-
+        |Title
+        |=====
+        |
+        |This is Markdown paragraph
+        |-*/
+        |
+        |object HiddenContext {
+        |  //`
+        |  /* This is a code comment
+        |  */
+        |  fun aFunction() {
+        |     return 42
+        |  }
+        |  //`
+        |}
+        |
+        |/*-
+        |More book text.
+        |-*/
+        """)
     }
+
+    @Test fun includes_a_file() {
+        checkApprovedTranslation("""
+        |/*-
+        |Book text
+        |
+        |//#include "included-file.txt"
+        |
+        |more text
+        |/*-
+        """)
+    }
+
+    private fun checkApprovedTranslation(source: String) {
+        approver.assertApproved(translate(source.trimMargin()).joinToString("\n"))
+    }
+}
 ```
 
 which by removing clutter lets us focus on what we are really trying to demonstrate, albeit the actual result is hidden in the approved files.
@@ -221,39 +221,39 @@ should resolve `filename.txt` relative to the the source file. But so far, our t
 We could change our tests to read the source from the filesystem, but that would mean that we had to look in a source file, an approved file, and the test, to work out what is going on. Instead I'm going to try punting the problem upstream, by requiring that callers of the `translate` function provide a way of resolving a file path to the contents of that filename, in addition to the string that they want translated. In the test, we'll use a lambda that just returns a known string.
 
 ```kotlin
-        @Test fun includes_a_file() {
-            checkApprovedTranslation(
-                source = """
-                    |/*-
-                    |Book text
-                    |
-                    |//#include "included-file.txt"
-                    |
-                    |more text
-                    |/*-""",
-                fileContents = """
-                    |included file first line
-                    |included file last line""")
-        }
+@Test fun includes_a_file() {
+    checkApprovedTranslation(
+        source = """
+            |/*-
+            |Book text
+            |
+            |//#include "included-file.txt"
+            |
+            |more text
+            |/*-""",
+        fileContents = """
+            |included file first line
+            |included file last line""")
+}
 
-        private fun checkApprovedTranslation(source: String, fileContents: String) {
-            approver.assertApproved(translate(source.trimMargin(), { fileContents }))
-        }
+private fun checkApprovedTranslation(source: String, fileContents: String) {
+    approver.assertApproved(translate(source.trimMargin(), { fileContents }))
+}
 
-        fun translate(source: String, fileReader: (String) -> String): String {
-            TODO()
-        }
+fun translate(source: String, fileReader: (String) -> String): String {
+    TODO()
+}
 ```
 
 With this scheme it turns out that I needn't have created the file, so I delete it. I'm also regretting the technical overdraft that is `translate`, but I really don't have a better idea at the moment, so I'm inclined to leave the logic as-is, but at least try to make it not much worse. Perhaps the easiest way of achieving that is to treat file inclusion as a pre-processor step before our previous logic.
 
 ```kotlin
-    fun translate(source: String, fileReader: (String) -> String) =
-        translate(preprocess(source, fileReader))
+fun translate(source: String, fileReader: (String) -> String) =
+    translate(preprocess(source, fileReader))
 
-    fun preprocess(source: String, fileReader: (String) -> String): String {
-        TODO()
-    }
+fun preprocess(source: String, fileReader: (String) -> String): String {
+    TODO()
+}
 ```
 
 This keeps things simple, but as I think through the consequences I realise that it means that the contents of the included file will be subject to the translation process, which would result in a complete mess when our use-case is including a file which sometimes includes our un-translated codes.
@@ -297,353 +297,353 @@ Deciding to go on is all very well, but I don't think I'm much closer to knowing
 We shouldn't refactor code that doesn't work though, so let's back-out our last change and remove the inclusion test to see what we have.
 
 ```kotlin
-    class CodeExtractorTests {
+class CodeExtractorTests {
 
-        @Rule @JvmField val approver = approvalsRule()
+    @Rule @JvmField val approver = approvalsRule()
 
-        @Test fun writes_a_markdown_file_from_Kotlin_file() {
-            checkApprovedTranslation("""
-            |package should.not.be.shown
-            |/*-
-            |Title
-            |=====
-            |
-            |This is Markdown paragraph
-            |-*/
-            |
-            |object HiddenContext {
-            |  //`
-            |  /* This is a code comment
-            |  */
-            |  fun aFunction() {
-            |     return 42
-            |  }
-            |  //`
-            |}
-            |
-            |/*-
-            |More book text.
-            |-*/
-            """)
-        }
-
-        private fun checkApprovedTranslation(source: String) {
-            approver.assertApproved(translate(source.trimMargin()).joinToString("\n"))
-        }
+    @Test fun writes_a_markdown_file_from_Kotlin_file() {
+        checkApprovedTranslation("""
+        |package should.not.be.shown
+        |/*-
+        |Title
+        |=====
+        |
+        |This is Markdown paragraph
+        |-*/
+        |
+        |object HiddenContext {
+        |  //`
+        |  /* This is a code comment
+        |  */
+        |  fun aFunction() {
+        |     return 42
+        |  }
+        |  //`
+        |}
+        |
+        |/*-
+        |More book text.
+        |-*/
+        """)
     }
 
-    fun translate(sourceLines: String): Sequence<String> {
-        var inCodeBlock = false
-        var inTextBlock = false
-        return sourceLines.splitToSequence("\n")
-            .map { line ->
-                when {
-                    !inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        inCodeBlock = true
-                        "```kotlin"
-                    }
-                    inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        inCodeBlock = false
-                        "```"
-                    }
-                    !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
-                        inTextBlock = true
-                        null
-                    }
-                    inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
-                        inTextBlock = false
-                        null
-                    }
-                    inTextBlock -> line
-                    inCodeBlock -> line
-                    line.isBlank() -> line
-                    else -> null
+    private fun checkApprovedTranslation(source: String) {
+        approver.assertApproved(translate(source.trimMargin()).joinToString("\n"))
+    }
+}
+
+fun translate(sourceLines: String): Sequence<String> {
+    var inCodeBlock = false
+    var inTextBlock = false
+    return sourceLines.splitToSequence("\n")
+        .map { line ->
+            when {
+                !inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    inCodeBlock = true
+                    "```kotlin"
                 }
+                inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    inCodeBlock = false
+                    "```"
+                }
+                !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
+                    inTextBlock = true
+                    null
+                }
+                inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
+                    inTextBlock = false
+                    null
+                }
+                inTextBlock -> line
+                inCodeBlock -> line
+                line.isBlank() -> line
+                else -> null
             }
-            .filterNotNull()
-    }
+        }
+        .filterNotNull()
+}
 ```
 
 I never was happy with the `translate` method - let's refactor to see what comes out. I don't believe that we can be in a code block and a text block at the same time, but the code doesn't express this. I'm going to replace the two variables with one, first by replacing `inCodeBlock` with an object. Note that each one of these steps keeps the tests passing.
 
 ```kotlin
-    object InCodeBlock
+object InCodeBlock
 
-    fun translate(sourceLines: String): Sequence<String> {
-        var state: InCodeBlock? = null
-        var inTextBlock = false
-        return sourceLines.splitToSequence("\n")
-            .map { line ->
-                when {
-                    state != InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        state = InCodeBlock
-                        "```kotlin"
-                    }
-                    state == InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        state = null
-                        "```"
-                    }
-                    !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
-                        inTextBlock = true
-                        null
-                    }
-                    inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
-                        inTextBlock = false
-                        null
-                    }
-                    inTextBlock -> line
-                    state == InCodeBlock -> line
-                    line.isBlank() -> line
-                    else -> null
+fun translate(sourceLines: String): Sequence<String> {
+    var state: InCodeBlock? = null
+    var inTextBlock = false
+    return sourceLines.splitToSequence("\n")
+        .map { line ->
+            when {
+                state != InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    state = InCodeBlock
+                    "```kotlin"
                 }
+                state == InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    state = null
+                    "```"
+                }
+                !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
+                    inTextBlock = true
+                    null
+                }
+                inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
+                    inTextBlock = false
+                    null
+                }
+                inTextBlock -> line
+                state == InCodeBlock -> line
+                line.isBlank() -> line
+                else -> null
             }
-            .filterNotNull()
-    }
+        }
+        .filterNotNull()
+}
 ```
 
 Then `inTextBlock`. It turns out that we don't really care if we are in a text block or not when we see it's end markers, so we can also simplify the when clauses and keep the tests passing.
 
 ```kotlin
-    object InCodeBlock
-    object InTextBlock
+object InCodeBlock
+object InTextBlock
 
-    fun translate(sourceLines: String): Sequence<String> {
-        var state: Any? = null
-        return sourceLines.splitToSequence("\n")
-            .map { line ->
-                when {
-                    state != InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        state = InCodeBlock
-                        "```kotlin"
-                    }
-                    state == InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        state = null
-                        "```"
-                    }
-                    line.firstNonSpaceCharsAre("/*-") -> {
-                        state = InTextBlock
-                        null
-                    }
-                    line.firstNonSpaceCharsAre("-*/") -> {
-                        state = null
-                        null
-                    }
-                    state == InTextBlock -> line
-                    state == InCodeBlock -> line
-                    line.isBlank() -> line
-                    else -> null
+fun translate(sourceLines: String): Sequence<String> {
+    var state: Any? = null
+    return sourceLines.splitToSequence("\n")
+        .map { line ->
+            when {
+                state != InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    state = InCodeBlock
+                    "```kotlin"
                 }
+                state == InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    state = null
+                    "```"
+                }
+                line.firstNonSpaceCharsAre("/*-") -> {
+                    state = InTextBlock
+                    null
+                }
+                line.firstNonSpaceCharsAre("-*/") -> {
+                    state = null
+                    null
+                }
+                state == InTextBlock -> line
+                state == InCodeBlock -> line
+                line.isBlank() -> line
+                else -> null
             }
-            .filterNotNull()
-    }
+        }
+        .filterNotNull()
+}
 ```
 
 and then replace null with Other and create a State class
 
 ```kotlin
-    sealed class State {
-        object InCodeBlock : State()
-        object InTextBlock : State()
-        object Other : State()
-    }
+sealed class State {
+    object InCodeBlock : State()
+    object InTextBlock : State()
+    object Other : State()
+}
 
-    fun translate(sourceLines: String): Sequence<String> {
-        var state: State = State.Other
-        return sourceLines.splitToSequence("\n")
-            .map { line ->
-                when {
-                    state != State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        state = State.InCodeBlock
-                        "```kotlin"
-                    }
-                    state == State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        state = State.Other
-                        "```"
-                    }
-                    line.firstNonSpaceCharsAre("/*-") -> {
-                        state = State.InTextBlock
-                        null
-                    }
-                    line.firstNonSpaceCharsAre("-*/") -> {
-                        state = State.Other
-                        null
-                    }
-                    state == State.InTextBlock -> line
-                    state == State.InCodeBlock -> line
-                    line.isBlank() -> line
-                    else -> null
+fun translate(sourceLines: String): Sequence<String> {
+    var state: State = State.Other
+    return sourceLines.splitToSequence("\n")
+        .map { line ->
+            when {
+                state != State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    state = State.InCodeBlock
+                    "```kotlin"
                 }
+                state == State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    state = State.Other
+                    "```"
+                }
+                line.firstNonSpaceCharsAre("/*-") -> {
+                    state = State.InTextBlock
+                    null
+                }
+                line.firstNonSpaceCharsAre("-*/") -> {
+                    state = State.Other
+                    null
+                }
+                state == State.InTextBlock -> line
+                state == State.InCodeBlock -> line
+                line.isBlank() -> line
+                else -> null
             }
-            .filterNotNull()
-    }
+        }
+        .filterNotNull()
+}
 ```
 
 Now I can delegate what happens to non-transition lines to the State
 
 ```kotlin
-    sealed class State {
-        abstract fun outputFor(line: String): String?
+sealed class State {
+    abstract fun outputFor(line: String): String?
 
-        object InCodeBlock : State() {
-            override fun outputFor(line: String) = line
-        }
-
-        object InTextBlock : State() {
-            override fun outputFor(line: String) = line
-        }
-
-        object Other : State() {
-            override fun outputFor(line: String) = if (line.isBlank()) line else null
-        }
-
+    object InCodeBlock : State() {
+        override fun outputFor(line: String) = line
     }
 
-    fun translate(sourceLines: String): Sequence<String> {
-        var state: State = State.Other
-        return sourceLines.splitToSequence("\n")
-            .map { line ->
-                when {
-                    state != State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        state = State.InCodeBlock
-                        "```kotlin"
-                    }
-                    state == State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        state = State.Other
-                        "```"
-                    }
-                    line.firstNonSpaceCharsAre("/*-") -> {
-                        state = State.InTextBlock
-                        null
-                    }
-                    line.firstNonSpaceCharsAre("-*/") -> {
-                        state = State.Other
-                        null
-                    }
-                    else -> state.outputFor(line)
+    object InTextBlock : State() {
+        override fun outputFor(line: String) = line
+    }
+
+    object Other : State() {
+        override fun outputFor(line: String) = if (line.isBlank()) line else null
+    }
+
+}
+
+fun translate(sourceLines: String): Sequence<String> {
+    var state: State = State.Other
+    return sourceLines.splitToSequence("\n")
+        .map { line ->
+            when {
+                state != State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    state = State.InCodeBlock
+                    "```kotlin"
                 }
+                state == State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    state = State.Other
+                    "```"
+                }
+                line.firstNonSpaceCharsAre("/*-") -> {
+                    state = State.InTextBlock
+                    null
+                }
+                line.firstNonSpaceCharsAre("-*/") -> {
+                    state = State.Other
+                    null
+                }
+                else -> state.outputFor(line)
             }
-            .filterNotNull()
-    }
+        }
+        .filterNotNull()
+}
 ```
 
 Now some lines cause the state to change, and some don't. I'm going to pull out a method called `advance` that returns the next state and the string that should be output.
 
 ```kotlin
-    sealed class State {
-        abstract fun outputFor(line: String): String?
+sealed class State {
+    abstract fun outputFor(line: String): String?
 
-        object InCodeBlock : State() {
-            override fun outputFor(line: String) = line
-        }
-
-        object InTextBlock : State() {
-            override fun outputFor(line: String) = line
-        }
-
-        object Other : State() {
-            override fun outputFor(line: String) = if (line.isBlank()) line else null
-        }
-
+    object InCodeBlock : State() {
+        override fun outputFor(line: String) = line
     }
 
-    fun translate(sourceLines: String): Sequence<String> {
-        var state: State = State.Other
-        return sourceLines.splitToSequence("\n")
-            .map { line ->
-                advance(state, line)
-            }
-            .onEach { state = it.first }
-            .map { it.second }
-            .filterNotNull()
+    object InTextBlock : State() {
+        override fun outputFor(line: String) = line
     }
 
-    private fun advance(state: State, line: String): Pair<State, String?> {
-        return when {
-            state != State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                State.InCodeBlock to "```kotlin"
-            }
-            state == State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                State.Other to "```"
-            }
-            line.firstNonSpaceCharsAre("/*-") -> {
-                State.InTextBlock to null
-            }
-            line.firstNonSpaceCharsAre("-*/") -> {
-                State.Other to null
-            }
-            else -> {
-                state to state.outputFor(line)
-            }
+    object Other : State() {
+        override fun outputFor(line: String) = if (line.isBlank()) line else null
+    }
+
+}
+
+fun translate(sourceLines: String): Sequence<String> {
+    var state: State = State.Other
+    return sourceLines.splitToSequence("\n")
+        .map { line ->
+            advance(state, line)
+        }
+        .onEach { state = it.first }
+        .map { it.second }
+        .filterNotNull()
+}
+
+private fun advance(state: State, line: String): Pair<State, String?> {
+    return when {
+        state != State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+            State.InCodeBlock to "```kotlin"
+        }
+        state == State.InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+            State.Other to "```"
+        }
+        line.firstNonSpaceCharsAre("/*-") -> {
+            State.InTextBlock to null
+        }
+        line.firstNonSpaceCharsAre("-*/") -> {
+            State.Other to null
+        }
+        else -> {
+            state to state.outputFor(line)
         }
     }
+}
 ```
 
 Now our processing is nice and symmetrical we can move advance to the `State`
 
 ```kotlin
-    sealed class State {
-        fun advance(line: String): Pair<State, String?> {
-            return when {
-                this !is InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                    InCodeBlock to "```kotlin"
-                }
-                this is InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                    Other to "```"
-                }
-                line.firstNonSpaceCharsAre("/*-") -> {
-                    InTextBlock to null
-                }
-                line.firstNonSpaceCharsAre("-*/") -> {
-                    Other to null
-                }
-                else -> {
-                    this to outputFor(line)
-                }
+sealed class State {
+    fun advance(line: String): Pair<State, String?> {
+        return when {
+            this !is InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                InCodeBlock to "```kotlin"
+            }
+            this is InCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                Other to "```"
+            }
+            line.firstNonSpaceCharsAre("/*-") -> {
+                InTextBlock to null
+            }
+            line.firstNonSpaceCharsAre("-*/") -> {
+                Other to null
+            }
+            else -> {
+                this to outputFor(line)
             }
         }
-        abstract fun outputFor(line: String): String?
-
-        object InCodeBlock : State() {
-            override fun outputFor(line: String) = line
-        }
-
-        object InTextBlock : State() {
-            override fun outputFor(line: String) = line
-        }
-
-        object Other : State() {
-            override fun outputFor(line: String) = if (line.isBlank()) line else null
-        }
-
     }
+    abstract fun outputFor(line: String): String?
+
+    object InCodeBlock : State() {
+        override fun outputFor(line: String) = line
+    }
+
+    object InTextBlock : State() {
+        override fun outputFor(line: String) = line
+    }
+
+    object Other : State() {
+        override fun outputFor(line: String) = if (line.isBlank()) line else null
+    }
+
+}
 ```
 
 Now we can delegate to InCodeBlock to make things, if not simpler, at least explicit.
 
 ```kotlin
-    sealed class State {
-        open fun advance(line: String): Pair<State, String?> = when {
-            line.firstNonSpaceCharsAre("//`") -> InCodeBlock to "```kotlin"
-            line.firstNonSpaceCharsAre("/*-") -> InTextBlock to null
-            line.firstNonSpaceCharsAre("-*/") -> Other to null
-            else -> this to outputFor(line)
-        }
-        abstract fun outputFor(line: String): String?
-
-        object InCodeBlock : State() {
-            override fun advance(line: String) = if (line.firstNonSpaceCharsAre("//`")) Other to "```"
-                else super.advance(line)
-            override fun outputFor(line: String) = line
-        }
-
-        object InTextBlock : State() {
-            override fun outputFor(line: String) = line
-        }
-
-        object Other : State() {
-            override fun outputFor(line: String) = if (line.isBlank()) line else null
-        }
+sealed class State {
+    open fun advance(line: String): Pair<State, String?> = when {
+        line.firstNonSpaceCharsAre("//`") -> InCodeBlock to "```kotlin"
+        line.firstNonSpaceCharsAre("/*-") -> InTextBlock to null
+        line.firstNonSpaceCharsAre("-*/") -> Other to null
+        else -> this to outputFor(line)
     }
+    abstract fun outputFor(line: String): String?
+
+    object InCodeBlock : State() {
+        override fun advance(line: String) = if (line.firstNonSpaceCharsAre("//`")) Other to "```"
+            else super.advance(line)
+        override fun outputFor(line: String) = line
+    }
+
+    object InTextBlock : State() {
+        override fun outputFor(line: String) = line
+    }
+
+    object Other : State() {
+        override fun outputFor(line: String) = if (line.isBlank()) line else null
+    }
+}
 ```
 
 To be honest I'm not entirely sure that this is better than the first formulation. That had the advantage of being transparent - you could see what is was doing. Now we have polymorphism and pairs and not-very well-named methods in the mix - they had better pull their weight if we are going to decide that this excursion was worthwhile. I wouldn't be sorry to just revert this refactor - if nothing else I've realised that the code had redundant logic that when removed would improve the old version.

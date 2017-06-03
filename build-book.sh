@@ -6,4 +6,5 @@ build/install/book/bin/book src/main/java/com/oneeyedmen/book/Chapter_02_Entrenc
 build/install/book/bin/book src/main/java/com/oneeyedmen/book/Chapter_03_Parser manuscript/Chapter_03_Parser.md
 build/install/book/bin/book src/main/java/com/oneeyedmen/book/Chapter_04_Publishing manuscript/Chapter_04_Publishing.md
 build/install/book/bin/book src/main/java/com/oneeyedmen/book/Chapter_05_v1_1 manuscript/Chapter_05_v1_1.md
+build/install/book/bin/book src/main/java/com/oneeyedmen/book/Chapter_06_Unindent_Source manuscript/Chapter_06_Unindent_Source.md
 

@@ -1,4 +1,4 @@
-# v1.1
+# Chapter 5 - Planning v1.1
 
 ## MVP
 
@@ -20,9 +20,9 @@ I've had my author's hat on for a while now. The last time I wore the developer 
 
 ### Simplify Prose Comment Block Ends
 
-"Every time I type `/*-` at the beginning of a line to start a prose block, IntelliJ helpfully inserts a `*/` on the line underneath to close the comment, but I have to prepend a `~` to end our prose block. I keep forgetting to do this, and nothing alerts me until I view the rendered Markdown mess. Can you warn me?"
+Author - "Every time I type `/*-` at the beginning of a line to start a prose block, IntelliJ helpfully inserts a `*/` on the line underneath to close the comment, but I have to prepend a `~` to end our prose block. I keep forgetting to do this, and nothing alerts me until I view the rendered Markdown mess. Can you warn me?"
 
-"I could make it an error at the point of translation I suppose, but then I'd have to find a way to tell you where the problem was. Why don't I just allow
+Developer - "I could make it an error at the point of translation I suppose, but then I'd have to find a way to tell you where the problem was. Why don't I just allow
 
 ```kotlin
 /*-
@@ -32,27 +32,27 @@ This is published
 
 ie - let the normal block-comment-end end our prose blocks? Unless you have a need to overlap code and prose comments that should be fine, and it would be backward compatible with the current functionality."
 
-"If you could do that it would be great. How long do you think it would take?"
+Author - "If you could do that it would be great. How long do you think it would take?"
 
-"Hmmm, 20 minutes if it works out like I think it should, otherwise all day"
+Developer - "Hmmm, 20 minutes if it works out like I think it should, otherwise all day"
 
-"Well it will almost certainly save me 20 minutes over the course of the book. I think that we should do it if it's done in that time, otherwise stop and we'll drop the feature."
+Author - "Well it will almost certainly save me 20 minutes over the course of the book. I think that we should do it if it's done in that time, otherwise stop and we'll drop the feature."
 
 ### Unindent Source
 
-"When Kotlin is rendered into code blocks it keeps whatever level of indentation it had in the source. This often results in lines being wrapped in the PDF, which is less than ideal, and will be even worse on phone screens. Can we fix that?"
+Author - "When Kotlin is rendered into code blocks it keeps whatever level of indentation it had in the source. This often results in lines being wrapped in the PDF, which is less than ideal, and will be even worse on phone screens. Can we fix that?"
 
-"Shouldn't be a problem - I can just remove the first line's indent from all lines. Or the minimum indent from all lines. Which would you like?"
+Developer - "Shouldn't be a problem - I can just remove the first line's indent from all lines. Or the minimum indent from all lines. Which would you like?"
 
-"I don't know - which would be quicker to try?"
+Author - "I don't know - which would be quicker to try?"
 
-"Well it's easier to find the first line's indent, but there really isn't much in it. Let me do that for now, and you can let me know whether you need a better job done. Maybe an hour's work, as I have some test cases to update."
+Developer - "Well it's easier to find the first line's indent, but there really isn't much in it. Let me do that for now, and you can let me know whether you need a better job done. Maybe an hour's work, as I have some test cases to update."
 
 ### Better Code Block Inclusion
 
-"I keep on having to jump through Markdown hoops because the `//#include` directive isn't processed in prose blocks, but I can't use Markdown code block markers in Kotlin code."
+Author - "I keep on having to jump through Markdown hoops because the `//#include` directive isn't processed in prose blocks, but I can't use Markdown code block markers in Kotlin code."
 
-"Hmmm, I could work out how to process those directives in prose blocks, or give you a special code for including code block markers at the Kotlin level. Maybe a general purpose directive
+Developer - "Hmmm, I could work out how to process those directives in prose blocks, or give you a special code for including code block markers at the Kotlin level. Maybe a general purpose directive
 
 ~~~Kotlin
 //#literal ---
@@ -60,22 +60,21 @@ ie - let the normal block-comment-end end our prose blocks? Unless you have a ne
 
 The latter would be simpler, but I'm more interested to learn how to be parsing more than one thing at once, and it would give you something to write about."
 
-"Ooh, sneaky, I like that. And the longer it takes you the more material I have."
+Author - "Ooh, sneaky, I like that. And the longer it takes you the more material I have."
 
-"Yes, within reason - remember how badly that first-generation parser refactoring worked out!? Let's try to get this one done in a day."
+Developer - "Yes, within reason - remember how badly that first-generation parser refactoring worked out!? Let's try to get this one done in a day."
 
 ### Streamline New Chapters
 
-"Every time I start a new chapter, I have to update the Book.txt that Leanpub uses to stitch together the constituent Markdown files, and add a line to the shell script that invokes the translator on a directory"
+Author - "Every time I start a new chapter, I have to update the Book.txt that Leanpub uses to stitch together the constituent Markdown files, and add a line to the shell script that invokes the translator on a directory"
 
-"Oh, so Leanpub is stitching together files as well as us? Why didn't you say so? Why don't I just gather together all our translated source files in order and generate Book.txt from those? It's probably an hour's work, and will remove some code that we currently don't have any tests for."
+Developer - "Oh, so Leanpub is stitching together files as well as us? Why didn't you say so? Why don't I just gather together all our translated source files in order and generate Book.txt from those? It's probably an hour's work, and will remove some code that we currently don't have any tests for."
 
 ### Streamline Publication
 
-"You've given me a batch file to run to build the book, but every time you make changes to the publishing code I have to update that first, and I don't necessarily know / remember when that is necessary."
+Author - "You've given me a batch file to run to build the book, but every time you make changes to the publishing code I have to update that first, and I don't necessarily know / remember when that is necessary."
 
-"Let me look at the Gradle build [sigh] - I can probably figure out a way to build the software, run the tests and build the whole book in one command. It's probably a couple of hours of pain."
-
+Developer - "Let me look at the Gradle build [sigh] - I can probably figure out a way to build the software, run the tests and build the whole book in one command. It's probably a couple of hours of pain."
 
 ## Prioritization
 

@@ -50,32 +50,32 @@ Let's write some code to take a mixed prose and source file and write a Markdown
 OK, time to write some code.
 
 ```kotlin
-    class CodeExtractorTests {
+class CodeExtractorTests {
 
-        @Rule @JvmField val approver = approvalsRule()
+    @Rule @JvmField val approver = approvalsRule()
 
-        @Test fun writes_a_markdown_file_from_Kotlin_file() {
-            val source = """
-            |/*-
-            |Title
-            |=====
-            |This is Markdown paragraph
-            |-*/
-            |
-            |/* This is a code comment
-            |*/
-            |fun aFunction() {
-            |   return 42
-            |}
-            |/*-
-            |More book text.
-            |-*/
-            """.trimMargin()
-            approver.assertApproved(translate(source))
-        }
+    @Test fun writes_a_markdown_file_from_Kotlin_file() {
+        val source = """
+        |/*-
+        |Title
+        |=====
+        |This is Markdown paragraph
+        |-*/
+        |
+        |/* This is a code comment
+        |*/
+        |fun aFunction() {
+        |   return 42
+        |}
+        |/*-
+        |More book text.
+        |-*/
+        """.trimMargin()
+        approver.assertApproved(translate(source))
     }
+}
 
-    fun translate(source: String) = source
+fun translate(source: String) = source
 ```
 
 Here I've written an example file content as a Kotlin here document, and then an identity translate function. Running the test creates a file `CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual` with the contents
@@ -108,28 +108,28 @@ and running it again.
 Now we need to improve the `translate` function. I was about to start by stripping out the lines beginning with `/*-` and `-*/`, but if we do that first we'll loose information about where the code starts. In fact thinking it through I realise that this page has code that we don't want to view (the `package` and `import` statements at the top), and I'm sure that in general there will be other code that is required to compile but doesn't contribute to the narrative. Maybe we need to explicitly mark code to be included.
 
 ```kotlin
-        @Test fun writes_a_markdown_file_from_Kotlin_file() {
-            val source = """
-            |package should.not.be.shown
-            |/*-
-            |Title
-            |=====
-            |This is Markdown paragraph
-            |-*/
-            |import should.not.be.shown
-            |//`
-            |/* This is a code comment
-            |*/
-            |fun aFunction() {
-            |   return 42
-            |}
-            |//`
-            |/*-
-            |More book text.
-            |-*/
-            """.trimMargin()
-            approver.assertApproved(translate(source))
-        }
+@Test fun writes_a_markdown_file_from_Kotlin_file() {
+    val source = """
+    |package should.not.be.shown
+    |/*-
+    |Title
+    |=====
+    |This is Markdown paragraph
+    |-*/
+    |import should.not.be.shown
+    |//`
+    |/* This is a code comment
+    |*/
+    |fun aFunction() {
+    |   return 42
+    |}
+    |//`
+    |/*-
+    |More book text.
+    |-*/
+    """.trimMargin()
+    approver.assertApproved(translate(source))
+}
 ```
 
 Here I've used a line comment with a backtick `//``` to mark the beginning and end of the code we want to see.
@@ -137,9 +137,9 @@ Here I've used a line comment with a backtick `//``` to mark the beginning and e
 Now we can first implement the code to strip out the block comments that hide our prose from the Kotlin compiler
 
 ```kotlin
-    fun translate(source: String) = source.split("\n")
-        .filterNot { it.startsWith("/*-") || it.startsWith("-*/") }
-        .joinToString("\n")
+fun translate(source: String) = source.split("\n")
+    .filterNot { it.startsWith("/*-") || it.startsWith("-*/") }
+    .joinToString("\n")
 ```
 
 The first run of the test fails as the actual file is different from the approved - inspecting it I can see that the differences are indeed the stripped out block comment markers - the file is now
@@ -163,35 +163,35 @@ More book text.
 Let's get to work putting the code between our special markers into a Markdown code block.
 
 ```kotlin
-    fun translate(source: String): String {
-        var inCodeBlock = false
-        var inTextBlock = false
-        return source.split("\n")
-            .map {
-                when {
-                    !inCodeBlock && it.startsWith("//`") -> {
-                        inCodeBlock = true
-                        "```kotlin"
-                    }
-                    inCodeBlock && it.startsWith("//`") -> {
-                        inCodeBlock = false
-                        "```"
-                    }
-                    !inTextBlock && it.startsWith("/*-") -> {
-                        inTextBlock = true
-                        ""
-                    }
-                    inTextBlock && it.startsWith("-*/") -> {
-                        inTextBlock = false
-                        ""
-                    }
-                    inTextBlock -> it
-                    inCodeBlock -> it
-                    else -> ""
+fun translate(source: String): String {
+    var inCodeBlock = false
+    var inTextBlock = false
+    return source.split("\n")
+        .map {
+            when {
+                !inCodeBlock && it.startsWith("//`") -> {
+                    inCodeBlock = true
+                    "```kotlin"
                 }
+                inCodeBlock && it.startsWith("//`") -> {
+                    inCodeBlock = false
+                    "```"
+                }
+                !inTextBlock && it.startsWith("/*-") -> {
+                    inTextBlock = true
+                    ""
+                }
+                inTextBlock && it.startsWith("-*/") -> {
+                    inTextBlock = false
+                    ""
+                }
+                inTextBlock -> it
+                inCodeBlock -> it
+                else -> ""
             }
-            .joinToString("\n")
-    }
+        }
+        .joinToString("\n")
+}
 ```
 
 Now I won't pretend that was easy to write, or that I'm proud of it, but it does work, yielding
@@ -220,75 +220,75 @@ Note that I've chosen to leave blank lines where markers and ignored text are fo
 Now of course, I have to try the code on the file that I'm typing into right now, as that is the real point.
 
 ```kotlin
-    fun main(args: Array<String>) {
-        val markdown = translate(File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike/01_c_Spike-First-Attempt-at-Publishing.kt").readText())
-        File("build/delme").apply {
-            mkdirs()
-            resolve("out.md").writeText(markdown)
-        }
+fun main(args: Array<String>) {
+    val markdown = translate(File("src/test/java/com/oneeyedmen/book/Chapter_01_Spike/01_c_Spike-First-Attempt-at-Publishing.kt").readText())
+    File("build/delme").apply {
+        mkdirs()
+        resolve("out.md").writeText(markdown)
     }
+}
 ```
 
 It doesn't quite work as I expected - it doesn't find publish code markers (\''') when they are indented with spaces. I suppose we should add that case to our test suite.
 
 ```kotlin
-        @Test fun writes_a_markdown_file_from_Kotlin_file() {
-            val source = """
-            |package should.not.be.shown
-            |/*-
-            |Title
-            |=====
-            |This is Markdown paragraph
-            |-*/
-            |object HiddenContext {
-            |  //`
-            |  /* This is a code comment
-            |  */
-            |  fun aFunction() {
-            |     return 42
-            |  }
-            |  //`
-            |}
-            |/*-
-            |More book text.
-            |-*/
-            """.trimMargin()
-            approver.assertApproved(translate(source))
-        }
+@Test fun writes_a_markdown_file_from_Kotlin_file() {
+    val source = """
+    |package should.not.be.shown
+    |/*-
+    |Title
+    |=====
+    |This is Markdown paragraph
+    |-*/
+    |object HiddenContext {
+    |  //`
+    |  /* This is a code comment
+    |  */
+    |  fun aFunction() {
+    |     return 42
+    |  }
+    |  //`
+    |}
+    |/*-
+    |More book text.
+    |-*/
+    """.trimMargin()
+    approver.assertApproved(translate(source))
+}
 ```
 
 and implement quickly and dirtyly to see if it's good.
 
 ```kotlin
-    fun translate(source: String): String {
-        var inCodeBlock = false
-        var inTextBlock = false
-        return source.split("\n")
-            .map {
-                when {
-                    !inCodeBlock && it.trim().startsWith("//`") -> {
-                        inCodeBlock = true
-                        "```kotlin"
-                    }
-                    inCodeBlock && it.trim().startsWith("//`") -> {
-                        inCodeBlock = false
-                        "```"
-                    }
-                    !inTextBlock && it.trim().startsWith("/*-") -> {
-                        inTextBlock = true
-                        ""
-                    }
-                    inTextBlock && it.trim().startsWith("-*/") -> {
-                        inTextBlock = false
-                        ""
-                    }
-                    inTextBlock -> it
-                    inCodeBlock -> it
-                    else -> ""
+fun translate(source: String): String {
+    var inCodeBlock = false
+    var inTextBlock = false
+    return source.split("\n")
+        .map {
+            when {
+                !inCodeBlock && it.trim().startsWith("//`") -> {
+                    inCodeBlock = true
+                    "```kotlin"
                 }
+                inCodeBlock && it.trim().startsWith("//`") -> {
+                    inCodeBlock = false
+                    "```"
+                }
+                !inTextBlock && it.trim().startsWith("/*-") -> {
+                    inTextBlock = true
+                    ""
+                }
+                inTextBlock && it.trim().startsWith("-*/") -> {
+                    inTextBlock = false
+                    ""
+                }
+                inTextBlock -> it
+                inCodeBlock -> it
+                else -> ""
             }
-            .joinToString("\n")
-    }
+        }
+        .joinToString("\n")
+}
 ```
 
 This works, and, after fixing some places in this file that I had messed up the formatting, it works here too.
@@ -296,37 +296,37 @@ This works, and, after fixing some places in this file that I had messed up the 
 It feels like there is something general trying to get out of that `inBlock..` code, but we'll come back to it when I'm less tired. I'll just make a small change to make it look less bad.
 
 ```kotlin
-    fun translate(source: String): String {
-        var inCodeBlock = false
-        var inTextBlock = false
-        return source.split("\n")
-            .map { line ->
-                when {
-                    !inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        inCodeBlock = true
-                        "```kotlin"
-                    }
-                    inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        inCodeBlock = false
-                        "```"
-                    }
-                    !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
-                        inTextBlock = true
-                        ""
-                    }
-                    inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
-                        inTextBlock = false
-                        ""
-                    }
-                    inTextBlock -> line
-                    inCodeBlock -> line
-                    else -> ""
+fun translate(source: String): String {
+    var inCodeBlock = false
+    var inTextBlock = false
+    return source.split("\n")
+        .map { line ->
+            when {
+                !inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    inCodeBlock = true
+                    "```kotlin"
                 }
+                inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    inCodeBlock = false
+                    "```"
+                }
+                !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
+                    inTextBlock = true
+                    ""
+                }
+                inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
+                    inTextBlock = false
+                    ""
+                }
+                inTextBlock -> line
+                inCodeBlock -> line
+                else -> ""
             }
-            .joinToString("\n")
-    }
+        }
+        .joinToString("\n")
+}
 
-    fun String.firstNonSpaceCharsAre(s: String) = this.trimStart().startsWith(s)
+fun String.firstNonSpaceCharsAre(s: String) = this.trimStart().startsWith(s)
 ```
 
 
@@ -345,63 +345,63 @@ In the time it's taken to write the contents, these filenames have changed sever
 
 
 ```kotlin
-    fun main(args: Array<String>) {
-        val dir = File("src/main/java/com/oneeyedmen/book/Chapter_01_Spike")
-        val translatedLines: Sequence<String> = sourceFilesIn(dir)
-            .flatMap(this::translate)
+fun main(args: Array<String>) {
+    val dir = File("src/main/java/com/oneeyedmen/book/Chapter_01_Spike")
+    val translatedLines: Sequence<String> = sourceFilesIn(dir)
+        .flatMap(this::translate)
 
-        val outDir = File("build/book").apply {
-            mkdirs()
-        }
-
-        outDir.resolve(dir.name + ".md").bufferedWriter(Charsets.UTF_8).use { writer ->
-            translatedLines.forEach {
-                writer.appendln(it)
-            }
-        }
+    val outDir = File("build/book").apply {
+        mkdirs()
     }
 
-    fun sourceFilesIn(dir: File) = dir
-        .listFiles { file -> file.isSourceFile() }
-        .toList()
-        .sortedBy(File::getName)
-        .asSequence()
+    outDir.resolve(dir.name + ".md").bufferedWriter(Charsets.UTF_8).use { writer ->
+        translatedLines.forEach {
+            writer.appendln(it)
+        }
+    }
+}
 
-    private fun File.isSourceFile() = isFile && !isHidden && name.endsWith(".kt")
+fun sourceFilesIn(dir: File) = dir
+    .listFiles { file -> file.isSourceFile() }
+    .toList()
+    .sortedBy(File::getName)
+    .asSequence()
 
-    fun translate(source: File): Sequence<String> = translate(source.readText(Charsets.UTF_8))
+private fun File.isSourceFile() = isFile && !isHidden && name.endsWith(".kt")
 
-    fun translate(sourceLines: String): Sequence<String> {
-        var inCodeBlock = false
-        var inTextBlock = false
-        return sourceLines.splitToSequence("\n")
-            .map { line ->
-                when {
-                    !inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        inCodeBlock = true
-                        "```kotlin"
-                    }
-                    inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
-                        inCodeBlock = false
-                        "```"
-                    }
-                    !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
-                        inTextBlock = true
-                        null
-                    }
-                    inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
-                        inTextBlock = false
-                        null
-                    }
-                    inTextBlock -> line
-                    inCodeBlock -> line
-                    else -> null
+fun translate(source: File): Sequence<String> = translate(source.readText(Charsets.UTF_8))
+
+fun translate(sourceLines: String): Sequence<String> {
+    var inCodeBlock = false
+    var inTextBlock = false
+    return sourceLines.splitToSequence("\n")
+        .map { line ->
+            when {
+                !inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    inCodeBlock = true
+                    "```kotlin"
                 }
+                inCodeBlock && line.firstNonSpaceCharsAre("//`") -> {
+                    inCodeBlock = false
+                    "```"
+                }
+                !inTextBlock && line.firstNonSpaceCharsAre("/*-") -> {
+                    inTextBlock = true
+                    null
+                }
+                inTextBlock && line.firstNonSpaceCharsAre("-*/") -> {
+                    inTextBlock = false
+                    null
+                }
+                inTextBlock -> line
+                inCodeBlock -> line
+                else -> null
             }
-            .filterNotNull()
-    }
+        }
+        .filterNotNull()
+}
 
-    fun String.firstNonSpaceCharsAre(s: String) = this.trimStart().startsWith(s)
+fun String.firstNonSpaceCharsAre(s: String) = this.trimStart().startsWith(s)
 ```
 
 Looking back at the last version of the `translate` function you'll see that I have changed returning a Sequence - this will allow me to avoid having all the text of all files in memory. I've also put `null`s into that Sequence where we are skipping a line, and then filtered out nulls from the Sequence with `filterNotNull`, so that we don't have a blank line for each source line we aren't outputting.
@@ -412,34 +412,34 @@ I had to up update the test as well as the code to account for the change to the
 
 
 ```kotlin
-    class CodeExtractorTests {
+class CodeExtractorTests {
 
-        @Rule @JvmField val approver = approvalsRule()
+    @Rule @JvmField val approver = approvalsRule()
 
-        @Test fun writes_a_markdown_file_from_Kotlin_file() {
-            val source = """
-            |package should.not.be.shown
-            |/*-
-            |Title
-            |=====
-            |This is Markdown paragraph
-            |-*/
-            |object HiddenContext {
-            |  //`
-            |  /* This is a code comment
-            |  */
-            |  fun aFunction() {
-            |     return 42
-            |  }
-            |  //`
-            |}
-            |/*-
-            |More book text.
-            |-*/
-            """.trimMargin()
-            approver.assertApproved(translate(source).joinToString("\n"))
-        }
+    @Test fun writes_a_markdown_file_from_Kotlin_file() {
+        val source = """
+        |package should.not.be.shown
+        |/*-
+        |Title
+        |=====
+        |This is Markdown paragraph
+        |-*/
+        |object HiddenContext {
+        |  //`
+        |  /* This is a code comment
+        |  */
+        |  fun aFunction() {
+        |     return 42
+        |  }
+        |  //`
+        |}
+        |/*-
+        |More book text.
+        |-*/
+        """.trimMargin()
+        approver.assertApproved(translate(source).joinToString("\n"))
     }
+}
 ```
 
 and the approved file shows no blank lines where we the skip a line in the source
@@ -461,8 +461,8 @@ More book text.
 Running the code and looking at the rendered Markdown with IntelliJ's Markdown plugin I see one glaring problem. Where one file ends and another starts we need to separate them with a blank line if the combined Markdown isn't to be interpreted as a contiguous paragraph. Let's fix that by adding a blank line to the end of each file's lines.
 
 ```kotlin
-        val translatedLines: Sequence<String> = sourceFilesIn(dir)
-            .flatMap { translate(it).plus("\n") }
+val translatedLines: Sequence<String> = sourceFilesIn(dir)
+    .flatMap { translate(it).plus("\n") }
 ```
 
 There is one other issue that I can see, which has to do with trying to show in the text how I mark the prose regions. Where I wrote
