@@ -779,15 +779,5 @@ This wasn't helped by my originally writing every line to the output using `Writ
 Had I had any tests for the top-level rendering this would have been obvious. At this stage in the process though, my integration testing consists of rendering the book so far and looking at the Markdown as displayed by Markoff, a Mac renderer app.
 {/aside}
 
-After an unconscionable amount of time I'm finally in a position to render the first chapter well enough to be reviewed, so I insert the required `//#include` directives and check the rendering. There is still an issue with the Markdown renderer interpreting
 
-~~~markdown
-```
-three quotes in code blocks
-```
-~~~
-
-which occurs when we include some Markdown inside files, but Googling reveals that I can mark those blocks with three tildes `~~~`s.
-
-Of course now I have another two chapters of material generated in my attempt to render the first, so I fix those up too and package up the three Markdown files for review.
 

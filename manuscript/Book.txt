@@ -2,3 +2,5 @@ Chapter_00_Introduction.md
 Chapter_01_Spike.md
 Chapter_02_Entrenchment.md
 Chapter_03_Parser.md
+Chapter_04_Publishing.md
+Chapter_05_Enhancement.md
