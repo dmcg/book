@@ -1,16 +1,14 @@
 package com.oneeyedmen.book.Chapter_03_Parser
 
-import com.oneeyedmen.book.AllOpen
+import com.oneeyedmen.book.Chapter_03_Parser.ContextB2.BookParser
+import com.oneeyedmen.book.Chapter_03_Parser.ContextB2.BookParser.*
+import org.junit.Ignore
 import org.junit.Test
 import org.parboiled.BaseParser
 import org.parboiled.Parboiled
 import org.parboiled.Rule
 import org.parboiled.annotations.BuildParseTree
 import org.parboiled.parserunners.ReportingParseRunner
-import com.oneeyedmen.book.Chapter_03_Parser.ContextB2.BookParser.TextBlock
-import com.oneeyedmen.book.Chapter_03_Parser.ContextB2.BookParser
-import com.oneeyedmen.book.Chapter_03_Parser.ContextB2.BookParser.Block
-import com.oneeyedmen.book.Chapter_03_Parser.ContextB2.BookParser.CodeBlock
 import org.parboiled.support.Var
 import kotlin.test.assertEquals
 
@@ -55,6 +53,7 @@ object ContextB1 {
             )
         }
 
+        @Ignore("code not yet written")
         //`
         @Test fun `single code block`() {
             check("""
@@ -408,9 +407,9 @@ object ContextB4 {
 /*-
 Well that went surprisingly well, in that it passes the tests and is pretty understandable as a parser. The main wrinkle is that I don't seem to be able to inline the
 
-\\`
+```kotlin
 val result = Var(CodeBlock())
-\\`
+```
 
 expressions - this must be something to do with the aggressive bytecode manipulation that Parboiled is performing. I expect that I will either understand this or be bitten by it again before the end of this project.
 

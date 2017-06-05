@@ -158,7 +158,7 @@ We could change our tests to read the source from the filesystem, but that would
 
 object ContextC3 {
 
-    @Ignore
+    @Ignore("code not yet written")
     class CodeExtractorTests {
 
         @Rule @JvmField val approver = approvalsRule()

@@ -3,6 +3,7 @@ package com.oneeyedmen.book.Chapter_03_Parser
 import com.oneeyedmen.book.Chapter_03_Parser.ContextB4.Block
 import com.oneeyedmen.book.Chapter_03_Parser.ContextB4.CodeBlock
 import com.oneeyedmen.book.Chapter_03_Parser.ContextB4.TextBlock
+import org.junit.Ignore
 import org.junit.Test
 import org.parboiled.Parboiled
 import org.parboiled.parserunners.ReportingParseRunner
@@ -15,6 +16,8 @@ Let's remind ourselves what our test looks like. Previously this was our only te
 -*/
 
 object ContextC1 {
+
+    @Ignore("instructive failure")
     //`
     class CodeExtractorTests {
 
