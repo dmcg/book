@@ -446,9 +446,9 @@ open class BookParser : BaseParser<Any>() {
 
 Well that went surprisingly well, in that it passes the tests and is pretty understandable as a parser. The main wrinkle is that I don't seem to be able to inline the
 
-\\`
+```kotlin
 val result = Var(CodeBlock())
-\\`
+```
 
 expressions - this must be something to do with the aggressive bytecode manipulation that Parboiled is performing. I expect that I will either understand this or be bitten by it again before the end of this project.
 
