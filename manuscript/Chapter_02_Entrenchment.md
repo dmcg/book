@@ -60,7 +60,7 @@ this is book text
 ⁠-*/
 ```
 
-but when I type that and run it through the translation, it (correctly) interprets the markers and messes up the formatting. I had bodged around the problem by prepending `| characters to the lines that cause problems, but that makes them very hard to read.
+but when I type that and run it through the translation, it (correctly) interprets the markers and messes up the formatting. I had bodged around the problem by prepending `|` characters to the lines that cause problems, but that makes them very hard to read.
 
 I talk the problem through with my friend Alan, and we hatch the plan of interpreting the traditional `\` as an escape character which will just be removed from the output, allowing me to write `/*-` and `*/` at the beginning of a line. Of course in order to write `\` there will need to be additional logic to replace a double-escape with a single.
 
@@ -70,7 +70,7 @@ So instead I guess that we should pick a character other than `\` to prevent tex
 
 A bit of Googling reveals Unicode U+2060 - "WORD JOINER", which is apparently similar to a zero-width space, but not a point at which a line can be broken. This seems perfect - I can enter it with the Mac hex input keyboard mode, and it prevents our special text being interpreted at the beginning of a line. It is rendered properly in IntelliJ, which is to say, not at all, which is great if you're reading, but not so good when editing. I can probably use its HTML entity form `\&#2060;` if I want to make it more visible.
 
-Frankly this is all making my head hurt. My spidey senses tell me that this going to cost me in the future, but for now, I need to get on with things and this change required no code, so I find all the places where I used the `| hack and replace them with the invisible word joiner.
+Frankly this is all making my head hurt. My spidey senses tell me that this going to cost me in the future, but for now, I need to get on with things and this change required no code, so I find all the places where I used the `|` hack and replace them with the invisible word joiner.
 
 
 Ironically, writing about the attempt to fix the representing-our-own-codes-in-our-output problem has given us the same problem in another set of files, those for this chapter, currently Chapter 2. I'd like to be able to review the whole book so far, which means converting two chapters' worth of Kotlin files into Markdown for reading. Luckily at the top of this chapter I worked out how to build the current software to be invoked from the command-line, so I add a top-level script to invoke this twice for the two current chapters.

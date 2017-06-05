@@ -1,6 +1,7 @@
 package com.oneeyedmen.book.Chapter_06_Unindent_Source
 
 import com.oneeyedmen.book.Chapter_03_Parser.ContextF1
+import com.oneeyedmen.book.Chapter_06_Unindent_Source.ContextA3.SourceBlock
 import org.junit.Test
 import org.parboiled.Action
 import org.parboiled.BaseParser
@@ -86,7 +87,7 @@ object ContextA2 {
         }
     }
 
-    data class CodeBlock(override val lines: MutableList<String>) : ContextF1.SourceBlock() {
+    data class CodeBlock(override val lines: MutableList<String>) : SourceBlock() {
         constructor(vararg lines: String) : this(mutableListOf(*lines))
 
         override fun render(contentResolver: (String) -> List<String>) = listOf("\n", "```kotlin\n") + lines + listOf("```\n", "\n")
@@ -140,7 +141,11 @@ object ContextA3 {
         return this.map { if (minimumIndent >= it.length) it else it.substring(minimumIndent) }
     }
 
-    val String.indentLength get() = if (this.isBlank()) Integer.MAX_VALUE else Math.max(this.indexOfFirst { !it.isWhitespace() }, 0)
+    val String.indentLength get() =
+        if (this.isBlank())
+            Integer.MAX_VALUE
+        else
+            Math.max(this.indexOfFirst { !it.isWhitespace() }, 0)
     //`
 
 /*-

@@ -52,7 +52,7 @@ Oh that's interesting, the CodeBlock's newlines really aren't in the place that 
     }
 }
 
-data class CodeBlock(override val lines: MutableList<String>) : ContextF1.SourceBlock() {
+data class CodeBlock(override val lines: MutableList<String>) : SourceBlock() {
     constructor(vararg lines: String) : this(mutableListOf(*lines))
 
     override fun render(contentResolver: (String) -> List<String>) = listOf("\n", "```kotlin\n") + lines + listOf("```\n", "\n")
@@ -92,7 +92,11 @@ fun List<String>.toLinesWithMinimumIndentRemoved(): List<String> {
     return this.map { if (minimumIndent >= it.length) it else it.substring(minimumIndent) }
 }
 
-val String.indentLength get() = if (this.isBlank()) Integer.MAX_VALUE else Math.max(this.indexOfFirst { !it.isWhitespace() }, 0)
+val String.indentLength get() =
+    if (this.isBlank())
+        Integer.MAX_VALUE
+    else
+        Math.max(this.indexOfFirst { !it.isWhitespace() }, 0)
 ```
 
 That's reasonably straightforward, and reads nicely because of our extension methods. Another Kotlin subtlety is hidden in the definition of `minimumIndent`. `Iterable.min()` will return `null` if there are no items in the list - in the same situation `Collections.min()` throws `NoSuchElementException`. Without Kotlin's insistence that I couldn't call `String.substring()` with a `Int?` (nullable Int) there would have been a failure if I ever tried to render an empty `CodeBlock`. That's the sort of thing that's embarrassing, and I can't put my hand on my heart and say that I was planning to write a test for the empty case. As it is, I wrestle with my engineering judgement and conclude that it isn't worth adding, but I'd be open to persuasion if my pair felt strongly.
