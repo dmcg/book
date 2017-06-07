@@ -82,6 +82,6 @@ Developer - "Let me look at the Gradle build [sigh] - I can probably figure out 
 
 ## Prioritization
 
-We have a chat and decide that, while all three features would be nice, Unindent Source would make the biggest difference to the published book. The others are all focused on speeding up writing / development, so are arguably less important, but should be achievable relatively soon after that.
+We have a chat and decide that, while all four features would be nice, Unindent Source would make the biggest difference to the published book. The others are all focused on speeding up writing / development, so are arguably less important, but should be achievable relatively soon after that.
 
 -*/
