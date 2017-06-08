@@ -21,12 +21,22 @@ If you've got this far through the introduction, I hope that I have at least piq
 
 If this section is still in the book it is still some way from being completed. Honestly, I don't know how it is working out. I'm really enjoying writing it, some people have said that they enjoyed reading it, but whether it is adding value to the world, and whether the format and topic stand a chance of meeting their aims, are still up for grabs.
 
-If you've decided on the text so far that the book isn't for you, but can spare me 2 more minutes of your time, skip to the end of Chapter One, fill out the questionnaire there, and email the results to me.
+If the book does interest you, and you reach the end of Chapter One and still have any will to live left, please follow the instructions there to send me feedback.
 
-If the book does interest you, if you reach the end of Chapter One and still have any will to live left, do the same.
+If you've decided on the text so far that the book isn't for you, but can spare me 2 more minutes of your time, then please follow the instructions below.
 
 Thank you
 
 Duncan
+
+Please create an [email to me](mailto:duncan@oneeyedmen.com?subject=Book%20Feedback), copy the following into an email, start answering at the top, keep going until you don't think you owe me any more or your precious time, and send. I'm sorry that I don't have an embedded form or anything - yet. Maybe if there is enough encouragement the processing of the form will become a chapter!
+
+>  1. Should I continue writing this book? [y \| n]
+>  2. Are you in the book's target market (3 - 10+ years of programming experience)? [y \| n]
+>  3. What do you think of the recursive nature of the material, writing about the development of the software to assist the writing? [0 (disaster) - 10 (triumph)]
+>  4. How likely are you to recommend the book to a friend or colleague? [0 - 10]
+>  5. Would you pay to read the completed book? [y \| n]
+>  6. Do you care about paper copies of books? [y \| n]
+>  7. Is there anything else you'd like to say? [ ... ]
 
 

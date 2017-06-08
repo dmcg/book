@@ -354,7 +354,7 @@ object ContextA7 {
         fun parse(source: String): List<Block> = runner.run(source).valueStack.toList().asReversed()
     }
 
-    private fun translate(file: File): Sequence<String> =
+    fun translate(file: File): Sequence<String> =
         Translator.translate(file.readText(),
             contentResolver = { path ->
                 file.parentFile.resolve(path).readLines().map { it + "\n" }
@@ -442,13 +442,13 @@ object ContextA7 {
         }
     }
 
-    private fun sourceFilesIn(dir: File) = dir
+    fun sourceFilesIn(dir: File) = dir
         .listFiles { file -> file.isSourceFile() }
         .toList()
         .sortedBy(File::getName)
         .asSequence()
 
-    private fun File.isSourceFile() = isFile && !isHidden && name.endsWith(".kt")
+    fun File.isSourceFile() = isFile && !isHidden && name.endsWith(".kt")
 }
 
 /*-
