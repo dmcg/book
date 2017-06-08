@@ -5,7 +5,7 @@ package com.oneeyedmen.book.Chapter_00_Introduction
 
 Well you've either got this far, or skipped here having decided that the content wasn't from you. Could you spare a couple of minutes to help me gauge whether I am wasting my time?
 
-If so then copy the following into an email, start answering at the top, keep going until you don't think you owe me any more or your precious time, and send. I'm sorry that I don't have an embedded form or anything - yet. Maybe if there is enough encouragement the processing of the form will become a chapter!
+If so then create an [email to me](mailto:duncan@oneeyedmen.com?subject=Book+Feedback), copy the following into an email, start answering at the top, keep going until you don't think you owe me any more or your precious time, and send. I'm sorry that I don't have an embedded form or anything - yet. Maybe if there is enough encouragement the processing of the form will become a chapter!
 
 >  1. Should I continue writing this book? [y \| n]
 >  2. Are you in the book's target market (3 - 10+ years of programming experience)? [y \| n]
