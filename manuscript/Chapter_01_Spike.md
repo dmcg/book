@@ -330,6 +330,18 @@ fun String.firstNonSpaceCharsAre(s: String) = this.trimStart().startsWith(s)
 ```
 
 
+## Conclusions
+
+What has this chapter been trying to prove?
+
+Firstly I've been trying to prove to myself that this model works for me when actually explaining concepts. Unless you're viewing the source version of this text, you won't see that there is a subtlety around the different versions of the code existing in the same source file. When explaining code on my blog I would have to move forward and back between different source versions, cutting and pasting them into the code. Here, I can keep the different versions in the same file, which is a big productivity win.
+
+Secondly, I'm trying to demonstrate risk reduction - making sure that I don't commit too much effort into a doomed venture. We've done just enough here to show that the book-in-comments approach has legs. No doubt I'll spend days on tooling to produce the book before I'm finished - the code is rough and the inability to write about my own notation without invoking it is a shame - but right now we have confidence without too much cost.
+
+Tooling is another take-away. Modern developers will go to great lengths to increase their own productivity by building tools to leverage their time. Sometimes these are simple scripts, sometimes full applications. I'm hoping to leverage the power of an IDE that I already know with some text processing to produce something greater than the sum of its parts.
+
+Leverage is my final thought. Great developers find ways of solving several problems at once. I don't claim to be a great developer, but I am secretly pleased with having tested the writing model, written some tooling to support it, and perhaps demonstrated some aspects of modern programming, all at the same time.
+
 ## Combining Files
 
 We're almost done in this first stint. The next thing I need to do to increase my confidence that this is working is to combine all the sections of this chapter into a whole, so that I and others can read it.
@@ -477,15 +489,21 @@ this is book text
 
 the markers were interpreted as markers and messed up the output. I add a pipe character `|` to the beginning of those marker lines to get things running. I don't have a solution to this at the moment, bar the pipe, but suspect that we'll need some way of escaping our own codes. I'm trusting that as I gain fluency with Markdown something clever will come up. If you can see the markers without `|`s above I guess I succeeded in the end.
 
-## Conclusions
+## Request for Feedback
 
-What has this chapter been trying to prove?
+Well you've either got this far, or skipped here having decided that the content wasn't from you. Could you spare a couple of minutes to help me gauge whether I am wasting my time?
 
-Firstly I've been trying to prove to myself that this model works for me when actually explaining concepts. Unless you're viewing the source version of this text, you won't see that there is a subtlety around the different versions of the code existing in the same source file. When explaining code on my blog I would have to move forward and back between different source versions, cutting and pasting them into the code. Here, I can keep the different versions in the same file, which is a big productivity win.
+If so then copy the following into an email, start answering at the top, keep going until you don't think you owe me any more or your precious time, and send. I'm sorry that I don't have an embedded form or anything - yet. Maybe if there is enough encouragement the processing of the form will become a chapter!
 
-Secondly, I'm trying to demonstrate risk reduction - making sure that I don't commit too much effort into a doomed venture. We've done just enough here to show that the book-in-comments approach has legs. No doubt I'll spend days on tooling to produce the book before I'm finished - the code is rough and the inability to write about my own notation without invoking it is a shame - but right now we have confidence without too much cost.
+>  1. Should I continue writing this book? [y | n]
+>  2. Are you in the book's target market (3-10 years of programming experience)? [y | n]
+>  3. What do you think of the recursive nature of the material, writing about the development of the software to assist the writing? [0 (disaster) - 10 (triumph)]
+>  4. How likely are you to recommend the book to a friend or colleague? [0 - 10]
+>  5. Would you pay to read the completed book? [y | n]
+>  6. Do you care about paper copies of books? [y | n]
 
-Tooling is another take-away. Modern developers will go to great lengths to increase their own productivity by building tools to leverage their time. Sometimes these are simple scripts, sometimes full applications. I'm hoping to leverage the power of an IDE that I already know with some text processing to produce something greater than the sum of its parts.
+Thank you
 
-Leverage is my final thought. Great developers find ways of solving several problems at once. I don't claim to be a great developer, but I am secretly pleased with having tested the writing model, written some tooling to support it, and perhaps demonstrated some aspects of modern programming, all at the same time.
+Duncan
+
 
