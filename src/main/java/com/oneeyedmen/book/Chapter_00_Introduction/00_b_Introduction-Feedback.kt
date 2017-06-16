@@ -9,11 +9,7 @@ If this section is still in the book it is still some way from being completed. 
 
 If the book does interest you, and you reach the end of Chapter One and still have any will to live left, please follow the instructions there to send me feedback.
 
-If you've decided on the text so far that the book isn't for you, but can spare me 2 more minutes of your time, then please follow the instructions below.
-
-Thank you
-
-Duncan
+If you've decided on the text so far that the book isn't for you, but can spare me 2 more minutes of your time, then please ...
 
 -*/
 

@@ -1,4 +1,4 @@
-Please create an [email to me](mailto:duncan@oneeyedmen.com?subject=Book%20Feedback), copy the following into an email, start answering at the top, keep going until you don't think you owe me any more or your precious time, and send. I'm sorry that I don't have an embedded form or anything - yet. Maybe if there is enough encouragement the processing of the form will become a chapter!
+... please create an [email to me](mailto:duncan@oneeyedmen.com?subject=Book%20Feedback), copy the following into an email, start answering at the top, keep going until you don't think you owe me any more or your precious time, and send. I'm sorry that I don't have an embedded form or anything - yet. Maybe if there is enough encouragement the processing of the form will become a chapter!
 
 >  1. Should I continue writing this book? [y \| n]
 >  2. Are you in the book's target market (3 - 10+ years of programming experience)? [y \| n]
@@ -9,3 +9,7 @@ Please create an [email to me](mailto:duncan@oneeyedmen.com?subject=Book%20Feedb
 >  7. Is there anything else you'd like to say? [ ... ]
 
 If you do like what I've written, then there is more available on [Leanpub](https://leanpub.com/episodes/) where you can read the other chapters for free. And please invite a friend.
+
+Thank you
+
+Duncan
