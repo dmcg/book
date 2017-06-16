@@ -8,7 +8,9 @@ import java.io.File
 /*-
 ## First Attempt at Publishing
 
-Let's write some code to take a mixed prose and source file and write a Markdown version. I'm not entirely sure what that output should look like yet, but I'll know it when I see it. This is the sweet spot for Approvals Tests, which will allow us to make rapid progress but at the same time know when we've slipped back.
+Let's write some code to take a mixed prose and source file and write a Markdown version. I'm not entirely sure what that output should look like yet, but I'll know it when I see it. This is the sweet spot for [Approval Tests](http://approvaltests.com/), which will allow us to make rapid progress but at the same time know when something that used to work doesn't any more.
+
+When you run an Approval test it stores the output from the test, and compares it to a approved version of that output. If they differ, or if there was no approved version, the test fails. You could write this logic yourself, but I'll use the [OkeyDoke](https://github.com/dmcg/okeydoke) Approval Tests library, which integrates with JUnit through a `Rule`.
 
 OK, time to write some code.
 -*/
@@ -45,7 +47,7 @@ object ContextC1 {
 }
 
 /*-
-Here I've written an example file content as a Kotlin here document, and then an identity translate function. Running the test creates a file `CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual` with the contents
+Here I've written an example file content as a Kotlin here document, and then, for now, an identity translate function just to get us running. Running the test creates a file `CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual` with the contents
 
 ~~~text
 -*/
@@ -53,7 +55,7 @@ Here I've written an example file content as a Kotlin here document, and then an
 /*-
 ~~~
 
-which is to say the source, as translate does nothing to it. The test fails, as there was no approved contents to compare with the actual - we can make it pass by approving the content with
+which is what we `assertApproved`. The test fails, as there was no approved content to compare with the actual. We can make it pass by approving the content with
 
 ```bash
 cp 'CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual' 'CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.approved'
@@ -61,7 +63,7 @@ cp 'CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual' 'CodeExtr
 
 and running it again.
 
-Now we need to improve the `translate` function. I was about to start by stripping out the lines beginning with `/*-` and `-*/`, but if we do that first we'll loose information about where the code starts. In fact thinking it through I realise that this page has code that we don't want to view (the `package` and `import` statements at the top), and I'm sure that in general there will be other code that is required to compile but doesn't contribute to the narrative. Maybe we need to explicitly mark code to be included.
+Of course we have just approved something that we know to be incorrect, but we're taking baby steps here. Now we need to improve the `translate` function. I was about to start by stripping out the lines beginning with `/*-` and `-*/`, but if we do that first we'll loose information about where the code starts. In fact thinking it through I realise that this page has code that we don't want to view (the `package` and `import` statements at the top), and I'm sure that in general there will be other code that is required to compile but doesn't contribute to the narrative. Maybe we need to explicitly mark code to be included.
 -*/
 
 object ContextC2 {

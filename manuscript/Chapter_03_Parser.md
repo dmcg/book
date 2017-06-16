@@ -50,7 +50,7 @@ open class CalculatorParser : BaseParser<Any>() {
 
 The only change we had to make from IntelliJ's conversion of the Java to Kotlin was to add the `open` keyword, as it turns out that Parboiled makes use of bytecode generation to enhance our parser class.
 
-We used another Approvals Test here so that we could record the output from `parseNodeTree` for your benefit - it looks like this
+We used another Approval Test here so that we could record the output from `parseNodeTree` for your benefit - it looks like this
 
 ~~~text
 [Expression] '1+2'

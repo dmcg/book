@@ -7,7 +7,7 @@ import org.junit.Rule
 import org.junit.Test
 
 /*-
-To review - the issue is that currently the book text has `[TODO]` markers in place of the contents of the Approvals Tests approved files. I could copy and paste the text from the file into the manuscript of course, but that breaks one of those rules that we ignore at our peril - the Single Point of Truth. If I do copy and paste the text then it can get out of sync with the file contents, which would be confusing for you, the reader. It doesn't seem like automatically including files should be hard, and I can think of some other places that it might come in handy, so let's just get on and implement it.
+To review - the issue is that currently the book text has `[TODO]` markers in place of the contents of the Approval Tests approved files. I could copy and paste the text from the file into the manuscript of course, but that breaks one of those rules that we ignore at our peril - the Single Point of Truth. If I do copy and paste the text then it can get out of sync with the file contents, which would be confusing for you, the reader. It doesn't seem like automatically including files should be hard, and I can think of some other places that it might come in handy, so let's just get on and implement it.
 
 Our approach to special codes so far has been to enrich Kotlin comments, so that the compiler ignores our information. It's easy to extend that approach, and I settle on
 

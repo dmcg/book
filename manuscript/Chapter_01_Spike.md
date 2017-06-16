@@ -6,20 +6,20 @@ What criteria should I use to make the decision? Well the working title of the b
 
 I know that this book will take a long time to write, and I also know that it will be full of code samples that we'd both like to actually work by the time you come to read them. So I'm looking for a way that I can mix code and prose in a way that is easy to write and maintain. 
 
-And that's why these words are being written into the IntelliJ IDE rather than Word. They are plain text now, although I'm already thinking of them as Markdown - I just haven't *needed* to emphasise anything yet. I suspect that this prose will end up as comments in Kotlin source files, and that some sort of build system will put the book together for me. In fact, if you're reading this on paper you can't see it yet, but this file is already surrounded by a Gradle build and is in the context of a Git repository. This is the way that modern programming projects in Kotlin will start, and so it feels rather fitting that the book does too.
+And that's why these words are being written into the IntelliJ IDE rather than Word. They are plain text now, although I'm already thinking of them as [Markdown](https://daringfireball.net/projects/markdown/) - I just haven't *needed* to emphasise anything yet. I suspect that this prose will end up as comments in Kotlin source files, and that some sort of build system will put the book together for me. In fact, if you're reading this on paper you can't see it yet, but this file is already surrounded by a Gradle build and is in the context of a Git repository. This is the way that modern programming projects in Kotlin will start, and so it feels rather fitting that the book does too.
 
 
 ## The First Kotlin File
 
-Risk reduction is high on the list of modern programming concerns. I want to know that the idea of embedding the content of this book in its own source code is tenable. So I'm going to start with a spike - a prototype that goes deep into the heart of the problem but doesn't attempt breadth. This way we hope to find major problems that might scupper an idea with the least effort.
+Risk reduction is high on the list of modern programming concerns. I want to know that the idea of embedding the content of this book in its own source code is viable. So I'm going to start with a spike - a prototype that goes deep into the heart of the problem but doesn't attempt breadth. This way we hope to find major problems that might scupper an idea with the least effort.
 
-So I'm typing this text as comments into a Kotlin source file called `2-spike.kt`. So far I've found that block comment markers don't get in the way of my text, but that I also don't get a nice Markdown preview of the formatting. That's alright though, as the nature of Markdown is that I can \*see\* the formatting even though it's only characters.
+I'm typing this text as comments into a [Kotlin](https://kotlinlang.org/) source file called `2-spike.kt`. Kotlin uses the same `/* block comment markers */` as Java and C. So far I've found that the markers don't get in the way of my text, but that I also don't get a nice Markdown preview of the formatting. That's alright though, as the nature of Markdown is that I can \*see\* the formatting even though it's only characters.
 
-So the text is OK. What about the code?
+So text is OK. What about code?
 
 ```kotlin
-import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class SpikeTest {
 
@@ -31,21 +31,34 @@ class SpikeTest {
 fun add(a: Int, b: Int) = a + b
 ```
 
-Well I can run that in the IDE and from Gradle, so I guess that's a start. It does occur to me that when the book is printed that we're going to want to see comments in the code as well as the book text, so I'd better start using a special comment marker for the latter. Taking a lead from Javadoc, which also extends standard block comments, I'm going to go with
+
+{aside}
+That's a [JUnit 4](http://junit.org/junit4/) test written in Kotlin. I'm going assume that you can read and understand JUnit tests, and at least get the gist of Kotlin when it is written as a direct translation of Java.
+{/aside}
+
+Well I can run that directly in the IDE and from the (Gradle)[https://gradle.org/] build tool, so I guess that's a start. Thinking ahead it occurs to me that I'm going to want to be able to write comments in the code. These could get confused with the comments that are the book text , so I'd better start using a different marker for the latter. Taking a lead from Javadoc, which *extends* standard block comments, but doesn't change their parsing by the compiler, I'm going to go with
 
 ```text
 ⁠/*-
-this is book text
+This is book text which the compiler will ignore.
 ⁠-*/
+
+/* This is a standard comment block
+ ⁠*/
+fun the_compiler_will_process_this() {
+
+}
 ```
 
 for now and see how it goes.
 
-It occurs to me that this is the opposite of the normal Markdown approach, where we can embed code inside blocks, with the text as the top level. Here the code is the top level, and the Markdown is embedded in it. The advantage is that we have to do nothing to our text to compile it, the disadvantage is that something is going to have to process the files to do something with the text before we can render the Markdown. That seems reasonable to me though, as I write code for a living, and an awful lot of that code does just this sort of thing to text. In fact we now have the opportunity to practice explaining the writing of code on the code that publishes itself.
+It occurs to me that this is the opposite of the normal Markdown approach, where we can embed code inside blocks, with the text as the top level. Here the code is the top level, and the Markdown is embedded in it. The advantage is that we have to do nothing to our text to compile it, the disadvantage is that something is going to have to process the files to do something with the text before we can render the Markdown. That seems reasonable to me though, as I write code for a living, and an awful lot of that code does just this sort of thing to text. In fact, now that I have a programming task to do, I can see whether or not I can describe that task in a way that makes sense to both of us.
 
 ## First Attempt at Publishing
 
-Let's write some code to take a mixed prose and source file and write a Markdown version. I'm not entirely sure what that output should look like yet, but I'll know it when I see it. This is the sweet spot for Approvals Tests, which will allow us to make rapid progress but at the same time know when we've slipped back.
+Let's write some code to take a mixed prose and source file and write a Markdown version. I'm not entirely sure what that output should look like yet, but I'll know it when I see it. This is the sweet spot for [Approval Tests](http://approvaltests.com/), which will allow us to make rapid progress but at the same time know when something that used to work doesn't any more.
+
+When you run an Approval test it stores the output from the test, and compares it to a approved version of that output. If they differ, or if there was no approved version, the test fails. You could write this logic yourself, but I'll use the [OkeyDoke](https://github.com/dmcg/okeydoke) Approval Tests library, which integrates with JUnit through a `Rule`.
 
 OK, time to write some code.
 
@@ -78,7 +91,7 @@ class CodeExtractorTests {
 fun translate(source: String) = source
 ```
 
-Here I've written an example file content as a Kotlin here document, and then an identity translate function. Running the test creates a file `CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual` with the contents
+Here I've written an example file content as a Kotlin here document, and then, for now, an identity translate function just to get us running. Running the test creates a file `CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual` with the contents
 
 ~~~text
 /*-
@@ -97,7 +110,7 @@ More book text.
 -*/
 ~~~
 
-which is to say the source, as translate does nothing to it. The test fails, as there was no approved contents to compare with the actual - we can make it pass by approving the content with
+which is what we `assertApproved`. The test fails, as there was no approved content to compare with the actual. We can make it pass by approving the content with
 
 ```bash
 cp 'CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual' 'CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.approved'
@@ -105,7 +118,7 @@ cp 'CodeExtractorTests.writes_a_markdown_file_from_Kotlin_file.actual' 'CodeExtr
 
 and running it again.
 
-Now we need to improve the `translate` function. I was about to start by stripping out the lines beginning with `/*-` and `-*/`, but if we do that first we'll loose information about where the code starts. In fact thinking it through I realise that this page has code that we don't want to view (the `package` and `import` statements at the top), and I'm sure that in general there will be other code that is required to compile but doesn't contribute to the narrative. Maybe we need to explicitly mark code to be included.
+Of course we have just approved something that we know to be incorrect, but we're taking baby steps here. Now we need to improve the `translate` function. I was about to start by stripping out the lines beginning with `/*-` and `-*/`, but if we do that first we'll loose information about where the code starts. In fact thinking it through I realise that this page has code that we don't want to view (the `package` and `import` statements at the top), and I'm sure that in general there will be other code that is required to compile but doesn't contribute to the narrative. Maybe we need to explicitly mark code to be included.
 
 ```kotlin
 @Test fun writes_a_markdown_file_from_Kotlin_file() {
@@ -491,9 +504,9 @@ the markers were interpreted as markers and messed up the output. I add a pipe c
 
 ## Request for Feedback
 
-Well you've got this far! Could you spare a couple of minutes to help me gauge whether I am wasting my time?
+Well you've either got this far, or skipped here having decided that the content wasn't from you. Could you spare a couple of minutes to help me gauge whether I am wasting my time?
 
-Please create an [email to me](mailto:duncan@oneeyedmen.com?subject=Book%20Feedback), copy the following into an email, start answering at the top, keep going until you don't think you owe me any more or your precious time, and send. I'm sorry that I don't have an embedded form or anything - yet. Maybe if there is enough encouragement the processing of the form will become a chapter!
+If so then create an [email to me](mailto:duncan@oneeyedmen.com?subject=Book+Feedback), copy the following into an email, start answering at the top, keep going until you don't think you owe me any more or your precious time, and send. I'm sorry that I don't have an embedded form or anything - yet. Maybe if there is enough encouragement the processing of the form will become a chapter!
 
 >  1. Should I continue writing this book? [y \| n]
 >  2. Are you in the book's target market (3 - 10+ years of programming experience)? [y \| n]
@@ -501,9 +514,10 @@ Please create an [email to me](mailto:duncan@oneeyedmen.com?subject=Book%20Feedb
 >  4. How likely are you to recommend the book to a friend or colleague? [0 - 10]
 >  5. Would you pay to read the completed book? [y \| n]
 >  6. Do you care about paper copies of books? [y \| n]
->  7. Is there anything else you'd like to say? [ ... ]
+>  7. Anything else you'd like to say?
 
 Thank you
 
 Duncan
+
 
