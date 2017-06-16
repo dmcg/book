@@ -2,18 +2,18 @@
 
 I'm writing this in Lisbon airport, an hour before my flight back to London is due to leave. On this holiday I've decided I'm pretty committed to writing this book, and now I'm wondering what technologies I should use for its production.
 
-What criteria should I use to make the decision? Well the working title of the book is "Modern Programming in Kotlin" so that might help. Defining modern programming is something that I hope will become clear by the end, but as I think it through, I realise that deciding how to write the book is fundamentally an engineering decision. Engineering is about trade-offs, choice, optimisation. It's about making the best use of your time or your client's money. And very often in programming that comes down to trading the cost to make something now against the cost of fixing it later.
+What criteria should I use to make the decision? Well the working title of the book is "Programming Episodes - learning modern development by example" so that might help. Defining modern development is something that I hope will become clear by the end, but as I think it through, I realise that deciding how to write the book is fundamentally an engineering decision. Engineering is about trade-offs, choice, optimisation. It's about making the best use of your time or your client's money. And very often in programming that comes down to trading the cost to make something now against the cost of fixing it later.
 
 I know that this book will take a long time to write, and I also know that it will be full of code samples that we'd both like to actually work by the time you come to read them. So I'm looking for a way that I can mix code and prose in a way that is easy to write and maintain. 
 
-And that's why these words are being written into the IntelliJ IDE rather than Word. They are plain text now, although I'm already thinking of them as [Markdown](https://daringfireball.net/projects/markdown/) - I just haven't *needed* to emphasise anything yet. I suspect that this prose will end up as comments in Kotlin source files, and that some sort of build system will put the book together for me. In fact, if you're reading this on paper you can't see it yet, but this file is already surrounded by a Gradle build and is in the context of a Git repository. This is the way that modern programming projects in Kotlin will start, and so it feels rather fitting that the book does too.
+And that's why these words are being written into the IntelliJ IDE rather than Word. They are plain text now, although I'm already thinking of them as [Markdown](https://daringfireball.net/projects/markdown/) - I just haven't *needed* to emphasise anything yet. I suspect that this prose will end up as comments in [Kotlin](https://kotlinlang.org/) source files, and that some sort of build system will put the book together for me. In fact, if you're reading this on paper you can't see it yet, but this file is already surrounded by a [Gradle](https://gradle.org/) build and is in the context of a Git repository. This is the way that modern development projects in Kotlin will start, and so it feels rather fitting that the book does too.
 
 
 ## The First Kotlin File
 
 Risk reduction is high on the list of modern programming concerns. I want to know that the idea of embedding the content of this book in its own source code is viable. So I'm going to start with a spike - a prototype that goes deep into the heart of the problem but doesn't attempt breadth. This way we hope to find major problems that might scupper an idea with the least effort.
 
-I'm typing this text as comments into a [Kotlin](https://kotlinlang.org/) source file called `2-spike.kt`. Kotlin uses the same `/* block comment markers */` as Java and C. So far I've found that the markers don't get in the way of my text, but that I also don't get a nice Markdown preview of the formatting. That's alright though, as the nature of Markdown is that I can \*see\* the formatting even though it's only characters.
+I'm typing this text as comments into a Kotlin source file called `2-spike.kt`. Kotlin uses the same `/* block comment markers */` as Java and C. So far I've found that the markers don't get in the way of my text, but that I also don't get a nice Markdown preview of the formatting. That's alright though, as the nature of Markdown is that I can \*see\* the formatting even though it's only characters.
 
 So text is OK. What about code?
 
@@ -36,7 +36,7 @@ fun add(a: Int, b: Int) = a + b
 That's a [JUnit 4](http://junit.org/junit4/) test written in Kotlin. I'm going assume that you can read and understand JUnit tests, and at least get the gist of Kotlin when it is written as a direct translation of Java.
 {/aside}
 
-Well I can run that directly in the IDE and from the (Gradle)[https://gradle.org/] build tool, so I guess that's a start. Thinking ahead it occurs to me that I'm going to want to be able to write comments in the code. These could get confused with the comments that are the book text , so I'd better start using a different marker for the latter. Taking a lead from Javadoc, which *extends* standard block comments, but doesn't change their parsing by the compiler, I'm going to go with
+Well I can run that directly in the IDE and from the Gradle build tool, so I guess that's a start. Thinking ahead it occurs to me that I'm going to want to be able to write comments in the code. These could get confused with the comments that are the book text , so I'd better start using a different marker for the latter. Taking a lead from Javadoc, which *extends* standard block comments, but doesn't change their parsing by the compiler, I'm going to go with
 
 ```text
 ⁠/*-
@@ -58,7 +58,7 @@ It occurs to me that this is the opposite of the normal Markdown approach, where
 
 Let's write some code to take a mixed prose and source file and write a Markdown version. I'm not entirely sure what that output should look like yet, but I'll know it when I see it. This is the sweet spot for [Approval Tests](http://approvaltests.com/), which will allow us to make rapid progress but at the same time know when something that used to work doesn't any more.
 
-When you run an Approval test it stores the output from the test, and compares it to a approved version of that output. If they differ, or if there was no approved version, the test fails. You could write this logic yourself, but I'll use the [OkeyDoke](https://github.com/dmcg/okeydoke) Approval Tests library, which integrates with JUnit through a `Rule`.
+When you run an Approval test it stores the output from the test, and compares it to a approved version of that output. If they differ, or if there was no approved version, the test fails. You could write this logic yourself, indeed I have, so I'll use the [OkeyDoke](https://github.com/dmcg/okeydoke) Approval Tests library, which integrates with JUnit through a `Rule`.
 
 OK, time to write some code.
 
@@ -209,7 +209,7 @@ fun translate(source: String): String {
 
 Now I won't pretend that was easy to write, or that I'm proud of it, but it does work, yielding
 
-~~~
+~~~text
 
 
 Title
@@ -342,18 +342,6 @@ fun translate(source: String): String {
 fun String.firstNonSpaceCharsAre(s: String) = this.trimStart().startsWith(s)
 ```
 
-
-## Conclusions
-
-What has this chapter been trying to prove?
-
-Firstly I've been trying to prove to myself that this model works for me when actually explaining concepts. Unless you're viewing the source version of this text, you won't see that there is a subtlety around the different versions of the code existing in the same source file. When explaining code on my blog I would have to move forward and back between different source versions, cutting and pasting them into the code. Here, I can keep the different versions in the same file, which is a big productivity win.
-
-Secondly, I'm trying to demonstrate risk reduction - making sure that I don't commit too much effort into a doomed venture. We've done just enough here to show that the book-in-comments approach has legs. No doubt I'll spend days on tooling to produce the book before I'm finished - the code is rough and the inability to write about my own notation without invoking it is a shame - but right now we have confidence without too much cost.
-
-Tooling is another take-away. Modern developers will go to great lengths to increase their own productivity by building tools to leverage their time. Sometimes these are simple scripts, sometimes full applications. I'm hoping to leverage the power of an IDE that I already know with some text processing to produce something greater than the sum of its parts.
-
-Leverage is my final thought. Great developers find ways of solving several problems at once. I don't claim to be a great developer, but I am secretly pleased with having tested the writing model, written some tooling to support it, and perhaps demonstrated some aspects of modern programming, all at the same time.
 
 ## Combining Files
 
@@ -502,6 +490,30 @@ this is book text
 
 the markers were interpreted as markers and messed up the output. I add a pipe character `|` to the beginning of those marker lines to get things running. I don't have a solution to this at the moment, bar the pipe, but suspect that we'll need some way of escaping our own codes. I'm trusting that as I gain fluency with Markdown something clever will come up. If you can see the markers without `|`s above I guess I succeeded in the end.
 
+## Conclusions
+
+What can we learn from this episode?
+
+Well I learned that this model works for me when actually explaining concepts. Unless you're viewing the source version of this text, you won't see that there is a subtlety around the different versions of the code existing in the same source file. When explaining code on my blog I would have to move forward and back between different source versions, cutting and pasting them into the code. Here, I can keep the different versions in the same file, which is a big productivity win.
+
+My learning that is a demonstration of the big topic - risk reduction. Before I started work on this book I identified the following main risks:
+
+1. No-one will want to read what I write on this subject
+2. It will be too much effort to maintain a code-heavy text
+
+These are typical of the 2 major risks facing a new software project - failure in the market and failure to be able to deliver economically (if at all). Unless we are certain that we can build something that our customers will want we had better address both risks early on. The way to address them is by gathering information as quickly and as cheaply as possible.
+
+If you are reading this text in anything other than the finished book, then you'll see that I will have addressed the market risk by releasing the product before it was finished in order to gauge if there is any enthusiasm. The chapter itself has been me addressing the technical risk that it's too hard to write about code by
+
+1. Hypothesising that I could write the book text within the source code rather than vice versa, and that that would be an efficient process, if I had a tool to extract it.
+2. Experimenting to see if the hypothesis is true by trying it out.
+
+I've done just enough here to show that the book-in-comments approach has legs. No doubt I'll spend days on tooling to produce the book before I'm finished - the code is rough and the inability to write about my own notation without invoking it is a shame - but right now I have confidence without too much cost.
+
+Tooling is another take-away. Modern developers will go to great lengths to increase their own productivity by building tools to leverage their time. Sometimes these are simple scripts, sometimes full applications. I'm hoping to leverage the power of an IDE that I already know with some text processing to produce something greater than the sum of its parts.
+
+Leverage is my final thought. Can we find ways of solving several problems at once? In this case I've managed to test the writing model, written some tooling to support it, and perhaps demonstrated some aspects of modern programming, all at the same time. We should obviously strive for humility, but I'm secretly a bit pleased with myself.
+
 ## Request for Feedback
 
 Well you've either got this far, or skipped here having decided that the content wasn't from you. Could you spare a couple of minutes to help me gauge whether I am wasting my time?
@@ -511,7 +523,7 @@ If so then create an [email to me](mailto:duncan@oneeyedmen.com?subject=Book+Fee
 >  1. Should I continue writing this book? [y \| n]
 >  2. Are you in the book's target market (3 - 10+ years of programming experience)? [y \| n]
 >  3. What do you think of the recursive nature of the material, writing about the development of the software to assist the writing? [0 (disaster) - 10 (triumph)]
->  4. How likely are you to recommend the book to a friend or colleague? [0 - 10]
+>  4. How likely are you to recommend the book to a friend or colleague? [0 (not at all) - 10 (extremely)]
 >  5. Would you pay to read the completed book? [y \| n]
 >  6. Do you care about paper copies of books? [y \| n]
 >  7. Anything else you'd like to say?

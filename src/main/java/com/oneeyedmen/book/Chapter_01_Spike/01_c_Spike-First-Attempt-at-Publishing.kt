@@ -10,7 +10,7 @@ import java.io.File
 
 Let's write some code to take a mixed prose and source file and write a Markdown version. I'm not entirely sure what that output should look like yet, but I'll know it when I see it. This is the sweet spot for [Approval Tests](http://approvaltests.com/), which will allow us to make rapid progress but at the same time know when something that used to work doesn't any more.
 
-When you run an Approval test it stores the output from the test, and compares it to a approved version of that output. If they differ, or if there was no approved version, the test fails. You could write this logic yourself, but I'll use the [OkeyDoke](https://github.com/dmcg/okeydoke) Approval Tests library, which integrates with JUnit through a `Rule`.
+When you run an Approval test it stores the output from the test, and compares it to a approved version of that output. If they differ, or if there was no approved version, the test fails. You could write this logic yourself, indeed I have, so I'll use the [OkeyDoke](https://github.com/dmcg/okeydoke) Approval Tests library, which integrates with JUnit through a `Rule`.
 
 OK, time to write some code.
 -*/
@@ -222,7 +222,7 @@ object ContextC4 {
 /*-
 Now I won't pretend that was easy to write, or that I'm proud of it, but it does work, yielding
 
-~~~
+~~~text
 -*/
 //#include "ContextC4.CodeExtractorTests_writes_a_markdown_file_from_Kotlin_file.approved"
 /*-
